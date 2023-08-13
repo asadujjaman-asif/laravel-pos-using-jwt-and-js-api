@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('users')){
-            Schema::create('users', function (Blueprint $table) {
+        if(!Schema::hasTable('categories')){
+            Schema::create('categories', function (Blueprint $table) {
                 $table->id();
-                $table->string('firstName',50);
-                $table->string('lastName',50);
-                $table->string('email',50)->unique();
-                $table->string('mobile',15);
-                $table->string('password');
-                $table->string('otp',10);
-                $table->date('lastLogin')->nullable();
+                $table->string('category_name');
+                $table->string('category_image');
+                $table->string('slug')->unique();
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('user')->cascadeOnUpdate()->restrictOnDelete();
                 $table->timestamp('created_at')->useCurrent();
                 $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories');
     }
 };

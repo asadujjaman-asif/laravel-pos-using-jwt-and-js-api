@@ -1,0 +1,47 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css";
+
+.input-control{
+	position: relative;
+}
+.input-control input{
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	padding: 5px 15px;
+	font-size: 14px;
+	height: 40px;
+}
+.input-control input:focus{
+	outline: 0;
+	border-color: #777;
+}
+.input-control.success-msg input{
+	border-color: green;
+}
+.input-control.error-msg input{
+	border-color: red;
+}
+.input-control small{
+	color: red;
+	position: absolute;
+	left: 5%;
+	visibility: hidden;
+}
+.input-control.show-msg small{
+	visibility: visible;
+}
+.input-control i{
+    position: absolute;
+}
+.failure-icon,.success-icon{
+	right: 0;
+	top: 60%;
+	padding: 0 20px;
+	opacity: 0;
+}
+.failure-icon{
+    color: red;
+  }
+  .success-icon{
+    color: green;
+  }

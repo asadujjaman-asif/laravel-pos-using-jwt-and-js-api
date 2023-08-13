@@ -18,12 +18,10 @@ class TokenVerifyMiddleware
         $token=$request->cookie('token');
         $result=JWTToken::verifyToken($token);
         if($result=="unauthorized"){
-            return response()->json([
-                'status'=>'failed',
-                'message'=>'Invalid user'
-            ],401);
+            return redirect('/auth/login');
         }else{
-            $request->headers->set('email',$result);
+            $request->headers->set('email',$result->userIdentity);
+            $request->headers->set('id',$result->userId);
             return $next($request);
         }
     }

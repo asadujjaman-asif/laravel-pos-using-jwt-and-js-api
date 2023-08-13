@@ -10,10 +10,10 @@
                         <a class="active-menu"  href="{{route('dashboard')}}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
                      <li>
-                        <a  href="ui.html"><i class="fa fa-desktop fa-3x"></i> UI Elements</a>
+                        <a  href="{{ route('user-profile')}}"><i class="fa fa-desktop fa-3x"></i> My Profile</a>
                     </li>
                     <li>
-                        <a  href="tab-panel.html"><i class="fa fa-qrcode fa-3x"></i> Tabs & Panels</a>
+                        <a  href="{{ route('category-list')}}"><i class="fa fa-qrcode fa-3x"></i>Manage category</a>
                     </li>
 						   <li  >
                         <a   href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>

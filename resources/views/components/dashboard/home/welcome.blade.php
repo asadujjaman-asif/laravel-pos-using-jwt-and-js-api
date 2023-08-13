@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
-        <h2>Admin Dashboard</h2>   
-        <h5>Welcome Jhon Deo , Love to see you back. </h5>
+        <h2>@yield('title')</h2>   
+        <h5><strong>Neel Ghuri POS</strong> solutions.</h5>
     </div>
 </div>              
 <!-- /. ROW  -->

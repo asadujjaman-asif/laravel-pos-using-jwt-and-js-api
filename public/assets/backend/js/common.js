@@ -1,3 +1,5 @@
+var countSuccess = 0;
+var counterrow = 0;
 function getInput(id){
     const input = document.getElementById(id);
     return input;
@@ -12,6 +14,8 @@ function isRequired(inputArr){
             showSuccessMessage(inputField);
         }
     });
+    counterrow = 0;
+    countSuccess = 0;
     return i;
 }
 function checkLength(input,min,max,message){
@@ -25,6 +29,8 @@ function checkLength(input,min,max,message){
     }else{
         showSuccessMessage(input);
     }
+    counterrow = 0;
+    countSuccess = 0;
     return i;
 }
 function isValidateEmail(input){
@@ -46,21 +52,32 @@ function checkPasswordMatch(passowrd,confirmPassword){
     }else{
         showSuccessMessage(confirmPassword); 
     }
+    counterrow = 0;
+    countSuccess = 0;
     return i;
 }
 function showErrorMessage(inputName,message){
     var elementName=inputName.parentElement;
-    elementName.className='input-control error-msg show-msg';
+    var element = document.getElementsByClassName("input-control")[counterrow];
+    element.classList.add("error-msg");
+    element.classList.add("show-msg");
+    //elementName.className='input-control error-msg show-msg';
     elementName.querySelector('small').innerText=message;
     elementName.getElementsByClassName('failure-icon')[0].style.opacity = '1';
     elementName.getElementsByClassName('success-icon')[0].style.opacity = '0';
+    counterrow=counterrow+1;
 }
+
 function showSuccessMessage(inputName){
     var elementName=inputName.parentElement;
-    elementName.className='input-control success-msg show-msg';
+    var element = document.getElementsByClassName("input-control")[countSuccess];
+    element.classList.add("success-msg");
+    element.classList.add("show-msg");
+    //elementName.className='input-control success-msg show-msg';
     elementName.querySelector('small').innerText='';
     elementName.getElementsByClassName('success-icon')[0].style.opacity = '1';
     elementName.getElementsByClassName('failure-icon')[0].style.opacity = '0';
+    countSuccess=countSuccess+1;
 }
 //show PreLoader
 function showPreLoader(){

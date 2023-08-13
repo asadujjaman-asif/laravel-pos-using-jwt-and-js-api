@@ -6,23 +6,41 @@ use Firebase\JWT\Key;
 use Exception;
 
 class JWTToken {
-    public static function createTocken($userEmail,$validityTime=3600){
+    public static function createTocken($userEmail,$userId,$validityTime=3600){
         $key=env('JWT_KEY');
         $payload = [
             'iss' => 'http://neelghuri.com',
             'aud' => 'http://neelghuri.com',
             'iat' => time(),
             'exp' => time()+$validityTime,
-            'userIdentity' => $userEmail
+            'userIdentity' => $userEmail,
+            'userId' => $userId,
         ];
         return JWT::encode($payload, $key, 'HS256');
 
     }
+    public static function createTokenForSetPassword($userEmail,$validityTime=600){
+        $key=env('JWT_KEY');
+        $payload = [
+            'iss' => 'http://neelghuri.com',
+            'aud' => 'http://neelghuri.com',
+            'iat' => time(),
+            'exp' => time()+$validityTime,
+            'userIdentity' => $userEmail,
+            'userId' => "0",
+        ];
+        return JWT::encode($payload, $key, 'HS256');
+    }
     public static function verifyToken($token){
         try{
             $key=env('JWT_KEY');
-            $decoded = JWT::decode($token, new Key($key, 'HS256'));
-            return $decoded->userIdentity;
+            if($token==null){
+                return "unauthorized";
+            }else{
+                $decoded = JWT::decode($token, new Key($key, 'HS256'));
+                return $decoded;
+            }
+            
         }catch(Exception $e){
             return "unauthorized";
         }
