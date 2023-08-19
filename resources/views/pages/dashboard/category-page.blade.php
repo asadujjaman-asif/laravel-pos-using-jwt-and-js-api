@@ -8,8 +8,8 @@ Category List
         @include('components.dashboard.home.welcome')
         @include('components.dashboard.category.category-list')
         @include('components.dashboard.category.category-create')
-        @include('components.dashboard.category.category-update')
         @include('components.dashboard.category.category-delete')
+        @include('components.dashboard.category.category-update')
         <!-- /. ROW  -->           
     </div>
         <!-- /. PAGE INNER  -->

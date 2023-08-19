@@ -54,8 +54,8 @@
         }
         $(".editBtn").on('click',async function() {
             let id = $(this).data('id');
-            alert(id);
-           // $("update-modal").modal("show");
+            await fillUpInputField(id);
+            $("#update-modal").modal("show");
         });
         $(".deleteBtn").on('click',async function() {
             let id = $(this).data('id');

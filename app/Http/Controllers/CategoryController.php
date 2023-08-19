@@ -47,31 +47,6 @@ class CategoryController extends Controller
             ], 200);
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCategoryRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -81,7 +56,8 @@ class CategoryController extends Controller
             $id=$request->header('id');
             $category=Category::findOrFail($request->category_id);
             $category->category_name = $request->category_name;
-            $category->slug = "{Str::slug($request->category_name)}-{$id}";
+            $category->category_image = null;
+            $category->slug = Str::slug($request->category_name)."-".$id;
             $category->user_id = $id;
             $category->save();
             return response()->json([
@@ -91,7 +67,8 @@ class CategoryController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'status' => 'failed',
-                'message' =>'Unauthorized user'
+                'message' =>'Unauthorized user',
+                'error' => $e->getMessage()
             ], 200);
         }
     }
@@ -114,5 +91,10 @@ class CategoryController extends Controller
                 'message' =>'Unauthorized user'
             ], 200);
         }
+    }
+    public function categoryById(Request $request){
+        $user_id=$request->header('id');
+        $result=Category::where('user_id',$user_id)->where('id',$request->category_id)->delete();
+        return $result;
     }
 }

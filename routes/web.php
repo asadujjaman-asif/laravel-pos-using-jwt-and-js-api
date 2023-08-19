@@ -51,7 +51,7 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('/category-list', 'categoryList')->name('category-list')->middleware([TokenVerifyMiddleware::class]);
     Route::get('/get-category', 'getCategory')->name('get-category')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/create-category', 'createCategory')->name('create-category')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/edit-category', 'editCategory')->name('edit-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/category-by-id', 'categoryById')->name('category-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-category', 'updateCategory')->name('update-category')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-category', 'deleteCategory')->name('delete-category')->middleware([TokenVerifyMiddleware::class]);
 });
