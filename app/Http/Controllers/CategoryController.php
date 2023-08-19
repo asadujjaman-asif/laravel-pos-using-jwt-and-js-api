@@ -94,7 +94,7 @@ class CategoryController extends Controller
     }
     public function categoryById(Request $request){
         $user_id=$request->header('id');
-        $result=Category::where('user_id',$user_id)->where('id',$request->category_id)->delete();
+        $result=Category::where('user_id',$user_id)->where('id',$request->category_id)->first();
         return $result;
     }
 }
