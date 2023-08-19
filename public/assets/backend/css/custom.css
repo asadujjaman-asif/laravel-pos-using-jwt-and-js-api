@@ -376,4 +376,19 @@ line-height: 1.428571429;
    
 }
 
-
+/* =================================================================
+        Modal Header color
+=================================================================*/ 
+.modal-header{
+    background-color: #4B9CD3;
+}
+.modal-footer{
+    background-color: #FCD12A;
+}
+.close span{
+    color:#fff;
+    margin-top:-20px;
+}
+.modal-title{
+    color:#fff
+}

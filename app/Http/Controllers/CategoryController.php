@@ -25,13 +25,14 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function createCategory(Request $request)
     {
         try {
             $id=$request->header('id');
             $category=new Category();
             $category->category_name = $request->category_name;
-            $category->slug = "{Str::slug($request->category_name)}-{$id}";
+            $category->category_image = null;
+            $category->slug = Str::slug($request->category_name)."-".$id;
             $category->user_id = $id;
             $category->save();
             return response()->json([
@@ -41,7 +42,8 @@ class CategoryController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'status' => 'failed',
-                'message' =>'Unauthorized user'
+                'message' =>'Unauthorized user',
+                "error" => $e->getMessage()
             ], 200);
         }
     }

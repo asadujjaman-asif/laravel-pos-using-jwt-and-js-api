@@ -19,8 +19,11 @@
      <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="{{asset('assets/backend/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
-    <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
     <script src="{{asset('assets/backend/js/common.js')}}"></script>
+    <script src="{{asset('assets/backend/js/jquery-1.10.2.js')}}"></script>
+    <script src="{{asset('assets/backend/js/dataTables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
+    
 <body>
     
     <div id="wrapper">
@@ -36,25 +39,13 @@
      <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="{{asset('assets/backend/js/jquery-1.10.2.js')}}"></script>
-    
       <!-- BOOTSTRAP SCRIPTS -->
-    <script src="{{asset('assets/backend/js/bootstrap.min.js')}}"></script>
+      <script src="{{asset('assets/backend/js/bootstrap.min.js')}}"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="{{asset('assets/backend/js/jquery.metisMenu.js')}}"></script>
      <!-- MORRIS CHART SCRIPTS -->
      <script src="{{asset('assets/backend/js/morris/raphael-2.1.0.min.js')}}"></script>
-    <script src="{{asset('assets/backend/js/morris/morris.js')}}"></script>
-    <script src="{{asset('assets/backend/js/dataTables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('assets/backend/js/dataTables/dataTables.bootstrap.js')}}"></script>
-    <script>
-            $(document).ready(function () {
-                $('.dataTables').dataTable({
-                  order:[[0,'desc']],
-                  lengthMenu:[5,10,15,20,30,40,50]
-                });
-            });
-    </script>
+   <script src="{{asset('assets/backend/js/morris/morris.js')}}"></script> 
       <!-- CUSTOM SCRIPTS -->
     <script src="{{asset('assets/backend/js/custom.js')}}"></script>
 </body>

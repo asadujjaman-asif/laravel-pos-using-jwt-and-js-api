@@ -24,7 +24,7 @@
 .input-control small{
 	color: red;
 	position: absolute;
-	left: 5%;
+	left: 0%;
 	visibility: hidden;
 }
 .input-control.show-msg small{
@@ -36,7 +36,7 @@
 .failure-icon,.success-icon{
 	right: 0;
 	top: 60%;
-	padding: 0 20px;
+	padding: 0 10px;
 	opacity: 0;
 }
 .failure-icon{
