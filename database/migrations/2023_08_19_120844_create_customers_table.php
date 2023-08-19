@@ -11,10 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('customers')){
+            Schema::create('customers', function (Blueprint $table) {
+                $table->id();
+                $table->string('name',50);
+                $table->string('email',50);
+                $table->string('mobile',50);
+                $table->unsignedInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->restrictOnDelete();
+                $table->timestamp('created_at')->useCurrent();
+                $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            });
+        }
     }
 
     /**
