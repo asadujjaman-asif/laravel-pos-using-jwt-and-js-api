@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -46,12 +47,12 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/user-profile', 'userProfile')->name('user-profile')->middleware([TokenVerifyMiddleware::class]);
     Route::get('/get-last-login', 'getLastLogin')->name('get-last-login')->middleware([TokenVerifyMiddleware::class]);
 });
-Route::controller(CategoryController::class)->group(function(){
+Route::controller(BrandController::class)->group(function(){
     //get request
-    Route::get('/category-list', 'categoryList')->name('category-list')->middleware([TokenVerifyMiddleware::class]);
-    Route::get('/get-category', 'getCategory')->name('get-category')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/create-category', 'createCategory')->name('create-category')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/category-by-id', 'categoryById')->name('category-by-id')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/update-category', 'updateCategory')->name('update-category')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/delete-category', 'deleteCategory')->name('delete-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/brand-list', 'BrandList')->name('brand-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-brand', 'getBrand')->name('get-brand')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-brand', 'createBrand')->name('create-brand')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/brand-by-id', 'BrandyById')->name('brand-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-brand', 'updateBrand')->name('update-brand')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-brand', 'deleteBrand')->name('delete-brand')->middleware([TokenVerifyMiddleware::class]);
 });
