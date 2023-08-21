@@ -16,7 +16,7 @@
                         <a  href="{{ route('category-list')}}"><i class="fa fa-qrcode fa-3x"></i>Manage category</a>
                     </li>
 						   <li  >
-                        <a   href="chart.html"><i class="fa fa-bar-chart-o fa-3x"></i> Morris Charts</a>
+                        <a   href="{{ route('brand-list')}}"><i class="fa fa-bar-chart-o fa-3x"></i> Mange Brand</a>
                     </li>	
                       <li  >
                         <a  href="table.html"><i class="fa fa-table fa-3x"></i> Table Examples</a>

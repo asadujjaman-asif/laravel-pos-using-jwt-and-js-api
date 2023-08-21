@@ -49,10 +49,10 @@ Route::controller(DashboardController::class)->group(function(){
 });
 Route::controller(BrandController::class)->group(function(){
     //get request
-    Route::get('/brand-list', 'BrandList')->name('brand-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/brand-list', 'brandList')->name('brand-list')->middleware([TokenVerifyMiddleware::class]);
     Route::get('/get-brand', 'getBrand')->name('get-brand')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/create-brand', 'createBrand')->name('create-brand')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/brand-by-id', 'BrandyById')->name('brand-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/brand-by-id', 'brandyById')->name('brand-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-brand', 'updateBrand')->name('update-brand')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-brand', 'deleteBrand')->name('delete-brand')->middleware([TokenVerifyMiddleware::class]);
 });
