@@ -9,4 +9,7 @@ class Category extends Model
 {
     //use HasFactory;
     protected $fillable=['category_name','slug','user_id'];
+    public function subCategory(){
+        return $this->hasOne(SubCategory::class);
+    }
 }

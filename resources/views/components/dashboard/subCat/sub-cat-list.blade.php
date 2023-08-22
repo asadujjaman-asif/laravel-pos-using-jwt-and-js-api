@@ -3,21 +3,22 @@
         <!-- Advanced Tables -->
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Brand List
+                Sub category List
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal" style="margin-top:-8px">Create</button>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables" id="BrandTable">
+                    <table class="table table-striped table-bordered table-hover dataTables" id="subCatTable">
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Brand name</th>
+                                <th>Category name</th>
+                                <th>Sub Category name</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="brandList">
+                        <tbody id="subCatList">
                         </tbody>
                     </table>
                 </div>
@@ -30,26 +31,27 @@
  <script type="text/javascript">
     getBrand();
     async function getBrand(){
-        let url="/get-brand";
+        let url="/get-sub-category";
         try{
             const response = await axios.get(url);
-            let BrandTable=$("#BrandTable");
-            let brandList=$("#brandList");
+            let subCatTable=$("#subCatTable");
+            let subCatList=$("#subCatList");
     
-            BrandTable.DataTable().destroy();
-            brandList.empty();
+            subCatTable.DataTable().destroy();
+            subCatList.empty();
             
             response.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['name']}</td>
+                    <td>${item.category['category_name']}</td>
                     <td>${item['description']}</td>
                     <td>
                         <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn">Edit</button>
                         <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn">Delete</button>
                     </td>
                 </tr>`
-                brandList.append(row);
+                subCatList.append(row);
             });
         }catch(error){
             alert(error);
@@ -64,7 +66,7 @@
             $("#delete-modal").modal("show");
             $("#deleteID").val(id);
         });
-        new DataTable('#BrandTable',{
+        new DataTable('#subCatTable',{
         order:[[0,'desc']],
         lengthMenu:[5,10,15,20,30]
         });

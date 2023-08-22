@@ -14,18 +14,18 @@ class SubCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function brandList()
+    public function subCategoryList()
     {
         return view('pages.dashboard.sub-cat-page');
     }
-    public function getBrand(Request $request){
+    public function getSubCategory(Request $request){
         $id=$request->header('id');
-        return SubCategory::where("user_id",$id)->get();
+        return SubCategory::with('category')->where("user_id",$id)->get();
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function createBrand(Request $request)
+    public function createSubCategory(Request $request)
     {
         try {
             $id=$request->header('id');
@@ -52,7 +52,7 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateBrand(Request $request)
+    public function updateSubCategory(Request $request)
     {
         try {
             $id=$request->header('id');
@@ -80,7 +80,7 @@ class SubCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function deleteBrand(Request $request)
+    public function deleteSubCategory(Request $request)
     {
         try {
             $user_id=$request->header('id');
@@ -96,7 +96,7 @@ class SubCategoryController extends Controller
             ], 200);
         }
     }
-    public function brandyById(Request $request){
+    public function subCategoryById(Request $request){
         $user_id=$request->header('id');
         $result=SubCategory::where('user_id',$user_id)->where('id',$request->subCat_id)->first();
         return $result;

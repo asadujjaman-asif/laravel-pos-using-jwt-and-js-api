@@ -1,6 +1,6 @@
 @extends('dashboardMain')
 @section('title')
-SUb category list
+Sub category list
 @endsection
 @section('content')
 <div id="page-wrapper" >
