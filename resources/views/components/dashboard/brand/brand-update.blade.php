@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Brand</h5>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
@@ -11,9 +11,16 @@
       <form id="form-up">
         <div class="modal-body">
           <div class="form-group input-control">
-            <label for="recipient-name" class="col-form-label">Category name</label>
-            <input type="text" class="form-control" id="catName" placeholder="Category name" msg="Category name is required.">
-            <input type="hidden"id="categoryId">
+            <label for="recipient-name" class="col-form-label">Brand name</label>
+            <input type="text" class="form-control" id="updateBrandName" placeholder="Brand name...." msg="Brand name is required.">
+            <input type="hidden"id="brandId">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
+          <div class="form-group input-control">
+            <label for="brandDescription" class="col-form-label">Description</label>
+            <textarea type="text" class="form-control" rows="5" id="updateBrandDescription" placeholder="Description...." msg="Description is required."></textarea>
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -30,26 +37,29 @@
 <script type="text/javascript">
     
     async function fillUpInputField(id){
-        getInput('categoryId').value=id;
-        let url="category-by-id";
+        getInput('brandId').value=id;
+        let url="brand-by-id";
         showPreLoader();
-        var result=await axios.post(url,{category_id:id});
+        var result=await axios.post(url,{brand_id:id});
+        console.log(result);
         hidePreLoader();
-        getInput('catName').value=result.data['category_name'];
+        getInput('updateBrandName').value=result.data['name'];
+        getInput('updateBrandDescription').value=result.data['description'];
     }
     async function update(){
-        const catName=getInput('catName');
-        const categoryId=getInput('categoryId');
+        const brandName=getInput('updateBrandName');
+        const brandDescription=getInput('updateBrandDescription');
         let required=isRequired(
-            [catName]
+            [brandName, brandDescription]
         );
         if(required==true){
             let formData={
-              category_name:catName.value,
-              category_id:categoryId.value,
+              name:brandName.value,
+              description:brandDescription.value,
+              brand_id:brandId.value,
             }
             getInput('up-modal-close').click();
-            let URL="/update-category";
+            let URL="/update-brand";
             showPreLoader();
             showMessage(3000);
             let res = await axios.post(URL,formData);
@@ -58,7 +68,7 @@
                getInput('message').innerText=res.data['message'];
                showMessage(3000);
                getInput('form-up').reset();
-               await getCategory();
+               await getBrand();
                
             }
         }
