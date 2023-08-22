@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    protected $fillables=['name', 'description','slug','user_id','category_id'];
 }

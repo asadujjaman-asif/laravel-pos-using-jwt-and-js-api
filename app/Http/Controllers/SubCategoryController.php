@@ -5,62 +5,100 @@ namespace App\Http\Controllers;
 use App\Models\SubCategory;
 use App\Http\Requests\StoreSubCategoryRequest;
 use App\Http\Requests\UpdateSubCategoryRequest;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function brandList()
     {
-        //
+        return view('pages.dashboard.sub-cat-page');
     }
-
+    public function getBrand(Request $request){
+        $id=$request->header('id');
+        return SubCategory::where("user_id",$id)->get();
+    }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createBrand(Request $request)
     {
-        //
+        try {
+            $id=$request->header('id');
+            $subCat=new SubCategory();
+            $subCat->name = $request->name;
+            $subCat->image = null;
+            $subCat->description = $request->description;
+            $subCat->slug = Str::slug($request->name)."-".$id;
+            $subCat->user_id = $id;
+            $subCat->category_id = $request->category_id;
+            $subCat->save();
+            return response()->json([
+                'status' => 'success',
+                'message' =>'Sub category has been created successfully'
+            ], 200);
+        }catch(Exception $e){
+            return response()->json([
+                'status' => 'failed',
+                'message' =>'Unauthorized user',
+                "error" => $e->getMessage()
+            ], 200);
+        }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSubCategoryRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(SubCategory $subCategory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SubCategory $subCategory)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory)
+    public function updateBrand(Request $request)
     {
-        //
+        try {
+            $id=$request->header('id');
+            $subCat=SubCategory::findOrFail($request->subCat_id);
+            $subCat->name = $request->name;
+            $subCat->image = null;
+            $subCat->description = $request->description;
+            $subCat->slug = Str::slug($request->name)."-".$id;
+            $subCat->user_id = $id;
+            $subCat->category_id = $request->category_id;
+            $subCat->save();
+            return response()->json([
+                'status' => 'success',
+                'message' =>'Sub category has been updated successfully'
+            ], 200);
+        }catch(Exception $e){
+            return response()->json([
+                'status' => 'failed',
+                'message' =>'Unauthorized user',
+                'error' => $e->getMessage()
+            ], 200);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SubCategory $subCategory)
+    public function deleteBrand(Request $request)
     {
-        //
+        try {
+            $user_id=$request->header('id');
+            SubCategory::where('user_id',$user_id)->where('id',$request->subCat_id)->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' =>'Sub category has been deleted successfully'
+            ], 200);
+        }catch(Exception $e){
+            return response()->json([
+                'status' => 'failed',
+                'message' =>'Unauthorized user'
+            ], 200);
+        }
+    }
+    public function brandyById(Request $request){
+        $user_id=$request->header('id');
+        $result=SubCategory::where('user_id',$user_id)->where('id',$request->subCat_id)->first();
+        return $result;
     }
 }

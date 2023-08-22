@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserRegister;
 use App\Http\Middleware\TokenVerifyMiddleware;
+use App\Models\SubCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +66,13 @@ Route::controller(BrandController::class)->group(function(){
     Route::post('/brand-by-id', 'brandyById')->name('brand-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-brand', 'updateBrand')->name('update-brand')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-brand', 'deleteBrand')->name('delete-brand')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(SubCategoryController::class)->group(function(){
+    //get request
+    Route::get('/sub-category-list', 'subCategoryList')->name('sub-category-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-sub-category', 'getSubCategory')->name('get-sub-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-sub-category', 'createSubCategory')->name('create-sub-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/sub-category-by-id', 'subCategoryyById')->name('sub-category-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-sub-category', 'updateSubCategory')->name('update-sub-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-sub-category', 'deleteSubCategory')->name('delete-sub-category')->middleware([TokenVerifyMiddleware::class]);
 });
