@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create new category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create new brand</h5>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
@@ -11,8 +11,15 @@
       <form id="form">
         <div class="modal-body">
           <div class="form-group input-control">
-            <label for="recipient-name" class="col-form-label">Category Name</label>
-            <input type="text" class="form-control" id="categoryName" placeholder="Category name" msg="Category name is required.">
+            <label for="brandName" class="col-form-label">Brand name</label>
+            <input type="text" class="form-control" id="brandName" placeholder="Brand name" msg="Brand name is required.">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
+          <div class="form-group input-control">
+            <label for="brandDescription" class="col-form-label">Description</label>
+            <textarea type="text" class="form-control" rows="5" id="brandDescription" placeholder="Description...." msg="Description is required."></textarea>
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -28,18 +35,20 @@
 </div>
 <script type="text/javascript">
     const formElement=getInput('form');
-    const categoryName=getInput('categoryName');
+    const brandName=getInput('brandName');
+    const brandDescription=getInput('brandDescription');
     formElement.addEventListener('submit',async function(e){
         e.preventDefault();
         let required=isRequired(
-            [categoryName]
+            [brandName, brandDescription]
         );
         if(required==true){
             let formData={
-              category_name:categoryName.value,
+              name:brandName.value,
+              description:brandDescription.value,
             }
             getInput('modal-close').click();
-            let URL="/create-category";
+            let URL="/create-brand";
             showPreLoader();
             showMessage(3000);
             let result = await axios.post(URL,formData);
@@ -48,7 +57,7 @@
                 getInput('message').innerText=result.data['message'];
                 showMessage(3000);
                 getInput('form').reset();
-                await getCategory();
+                await getBrand();
                
             }
         }

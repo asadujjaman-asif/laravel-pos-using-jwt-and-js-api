@@ -47,6 +47,15 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/user-profile', 'userProfile')->name('user-profile')->middleware([TokenVerifyMiddleware::class]);
     Route::get('/get-last-login', 'getLastLogin')->name('get-last-login')->middleware([TokenVerifyMiddleware::class]);
 });
+Route::controller(CategoryController::class)->group(function(){
+    //get request
+    Route::get('/category-list', 'categoryList')->name('category-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-category', 'getCategory')->name('get-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-category', 'createCategory')->name('create-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/category-by-id', 'categoryyById')->name('category-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-category', 'updateCategory')->name('update-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-category', 'deleteCategory')->name('delete-category')->middleware([TokenVerifyMiddleware::class]);
+});
 Route::controller(BrandController::class)->group(function(){
     //get request
     Route::get('/brand-list', 'brandList')->name('brand-list')->middleware([TokenVerifyMiddleware::class]);

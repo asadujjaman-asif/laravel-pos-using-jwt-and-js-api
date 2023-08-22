@@ -28,7 +28,7 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
-    getCategory();
+    getBrand();
     async function getBrand(){
         let url="/get-brand";
         try{
@@ -64,7 +64,7 @@
             $("#delete-modal").modal("show");
             $("#deleteID").val(id);
         });
-        new DataTable('#categoryTable',{
+        new DataTable('#BrandTable',{
         order:[[0,'desc']],
         lengthMenu:[5,10,15,20,30]
         });

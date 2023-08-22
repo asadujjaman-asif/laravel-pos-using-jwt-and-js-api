@@ -6,6 +6,7 @@ use App\Models\Brand;
 use Exception;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use Illuminate\Support\Str;
 
 class BrandController extends Controller
 {
@@ -27,12 +28,13 @@ class BrandController extends Controller
     {
         try {
             $id=$request->header('id');
-            $category=new Brand();
-            $category->category_name = $request->category_name;
-            $category->category_image = null;
-            $category->slug = Str::slug($request->category_name)."-".$id;
-            $category->user_id = $id;
-            $category->save();
+            $brand=new Brand();
+            $brand->name = $request->name;
+            $brand->images = null;
+            $brand->description = $request->description;
+            $brand->slug = Str::slug($request->name)."-".$id;
+            $brand->user_id = $id;
+            $brand->save();
             return response()->json([
                 'status' => 'success',
                 'message' =>'Brand has been created successfully'
