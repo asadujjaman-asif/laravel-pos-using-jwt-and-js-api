@@ -80,7 +80,7 @@ class BrandController extends Controller
     {
         try {
             $user_id=$request->header('id');
-            Brand::where('user_id',$user_id)->where('id',$request->category_id)->delete();
+            Brand::where('user_id',$user_id)->where('id',$request->brand_id)->delete();
             return response()->json([
                 'status' => 'success',
                 'message' =>'Brand has been deleted successfully'

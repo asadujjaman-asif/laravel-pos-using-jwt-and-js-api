@@ -21,12 +21,12 @@
         let id=document.getElementById('deleteID').value;
         document.getElementById('modal-close-delete').click();
         showPreLoader();
-        let result=await axios.post("/delete-category",{category_id:id})
+        let result=await axios.post("/delete-brand",{brand_id:id})
         hidePreLoader();
         if(result.status == 200 && result.data['status']=='success'){
             getInput('message').innerText=result.data['message'];
             showMessage(3000);
-            await getCategory();
+            await getBrand();
         }
         else{
             errorToast("Request fail!")
