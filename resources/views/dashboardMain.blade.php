@@ -16,6 +16,7 @@
     <link href="{{asset('assets/backend/css/loader.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('assets/backend/css/validate.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/message.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/backend/css/chosen.css')}}">
      <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="{{asset('assets/backend/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
@@ -48,5 +49,16 @@
    <script src="{{asset('assets/backend/js/morris/morris.js')}}"></script> 
       <!-- CUSTOM SCRIPTS -->
     <script src="{{asset('assets/backend/js/custom.js')}}"></script>
+    <script src="{{asset('assets/backend/js/chosen.jquery.js')}}"></script>
+    <script type="text/javascript">
+      $(".chosen-select").chosen({
+          no_results_text: "Oops, nothing found!",
+          width: "100%",
+          height: "40px",
+        }
+      );
+      $(".chosen-single").css("height", "40px");
+      $(".chosen-single").css("line-height", "40px");
+  </script>
 </body>
 </html>

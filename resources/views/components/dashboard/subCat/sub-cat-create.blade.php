@@ -10,8 +10,9 @@
       </div>
       <form id="form">
         <div class="modal-body">
+          @include('components.dashboard.inc.category')
           <div class="form-group input-control">
-            <label for="brandName" class="col-form-label">Brand name</label>
+            <label for="brandName" class="col-form-label">Sub Category name</label>
             <input type="text" class="form-control" id="brandName" placeholder="Brand name" msg="Brand name is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
@@ -35,12 +36,15 @@
 </div>
 <script type="text/javascript">
     const formElement=getInput('form');
-    const brandName=getInput('brandName');
+    const categoryName=getInput('category');
+    const subCatName=getInput('subCatName');
     const brandDescription=getInput('brandDescription');
     formElement.addEventListener('submit',async function(e){
         e.preventDefault();
+        alert(categoryName.value);
+      return false;
         let required=isRequired(
-            [brandName, brandDescription]
+          [categoryName, subCatName,brandDescription]
         );
         if(required==true){
             let formData={
