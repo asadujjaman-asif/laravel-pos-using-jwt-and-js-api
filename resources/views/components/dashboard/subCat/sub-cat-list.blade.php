@@ -29,8 +29,8 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
-    getBrand();
-    async function getBrand(){
+    subCatList();
+    async function subCatList(){
         let url="/get-sub-category";
         try{
             const response = await axios.get(url);

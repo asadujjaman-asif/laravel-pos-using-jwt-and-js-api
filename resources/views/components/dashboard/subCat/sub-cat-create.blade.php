@@ -13,14 +13,14 @@
           @include('components.dashboard.inc.category')
           <div class="form-group input-control">
             <label for="brandName" class="col-form-label">Sub Category name</label>
-            <input type="text" class="form-control" id="brandName" placeholder="Brand name" msg="Brand name is required.">
+            <input type="text" class="form-control" id="subCatName" placeholder="Sub Category name" msg="Sub Categor name is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
             <label for="brandDescription" class="col-form-label">Description</label>
-            <textarea type="text" class="form-control" rows="5" id="brandDescription" placeholder="Description...." msg="Description is required."></textarea>
+            <textarea type="text" class="form-control" rows="5" id="subCatDescription" placeholder="Description...." msg="Description is required."></textarea>
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -38,21 +38,22 @@
     const formElement=getInput('form');
     const categoryName=getInput('category');
     const subCatName=getInput('subCatName');
-    const brandDescription=getInput('brandDescription');
+    const subCatDescription=getInput('subCatDescription');
     formElement.addEventListener('submit',async function(e){
         e.preventDefault();
         alert(categoryName.value);
       return false;
         let required=isRequired(
-          [categoryName, subCatName,brandDescription]
+          [categoryName, subCatName,subCatDescription]
         );
         if(required==true){
             let formData={
-              name:brandName.value,
-              description:brandDescription.value,
+              name:categoryName.value,
+              name:subCatName.value,
+              description:subCatDescription.value,
             }
             getInput('modal-close').click();
-            let URL="/create-brand";
+            let URL="/create-sub-category";
             showPreLoader();
             showMessage(3000);
             let result = await axios.post(URL,formData);
@@ -61,7 +62,7 @@
                 getInput('message').innerText=result.data['message'];
                 showMessage(3000);
                 getInput('form').reset();
-                await getBrand();
+                await subCatList();
                
             }
         }
