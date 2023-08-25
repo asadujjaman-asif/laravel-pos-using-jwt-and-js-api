@@ -3,24 +3,25 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Brand</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update sub category</h5>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
       </div>
       <form id="form-up">
         <div class="modal-body">
+        @include('components.dashboard.inc.update-cat')
           <div class="form-group input-control">
             <label for="recipient-name" class="col-form-label">Brand name</label>
-            <input type="text" class="form-control" id="updateBrandName" placeholder="Brand name...." msg="Brand name is required.">
-            <input type="hidden"id="brandId">
+            <input type="text" class="form-control" id="updateSubCatName" placeholder="Sub Category name...." msg="Sub category name is required.">
+            <input type="hidden"id="subCat_id">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
             <label for="brandDescription" class="col-form-label">Description</label>
-            <textarea type="text" class="form-control" rows="5" id="updateBrandDescription" placeholder="Description...." msg="Description is required."></textarea>
+            <textarea type="text" class="form-control" rows="5" id="updateSubCatDescription" placeholder="Description...." msg="Description is required."></textarea>
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -37,29 +38,33 @@
 <script type="text/javascript">
     
     async function fillUpInputField(id){
-        getInput('brandId').value=id;
-        let url="brand-by-id";
+
+        getInput('subCat_id').value=id;
+        let url="sub-category-by-id";
         showPreLoader();
-        var result=await axios.post(url,{brand_id:id});
-        console.log(result);
+        var result=await axios.post(url,{subCat_id:id});
         hidePreLoader();
-        getInput('updateBrandName').value=result.data['name'];
-        getInput('updateBrandDescription').value=result.data['description'];
+        getInput('updateSubCatName').value=result.data['name'];
+        getInput('updateSubCatDescription').value=result.data['description'];
+        getInput('upCategory').value=result.data['category_id'];
+        $("#upCategory").trigger("chosen:updated");
     }
     async function update(){
-        const brandName=getInput('updateBrandName');
-        const brandDescription=getInput('updateBrandDescription');
+        const updateSubCatName=getInput('updateSubCatName');
+        const updateSubCatDescription=getInput('updateSubCatDescription');
+        const upCategory=getInput('upCategory');
         let required=isRequired(
-            [brandName, brandDescription]
+            [updateSubCatName, updateSubCatDescription, upCategory]
         );
         if(required==true){
             let formData={
-              name:brandName.value,
-              description:brandDescription.value,
-              brand_id:brandId.value,
+              category_id:upCategory.value,
+              name:updateSubCatName.value,
+              description:updateSubCatDescription.value,
+              subCat_id:subCat_id.value,
             }
             getInput('up-modal-close').click();
-            let URL="/update-brand";
+            let URL="/update-sub-category";
             showPreLoader();
             showMessage(3000);
             let res = await axios.post(URL,formData);
@@ -68,7 +73,7 @@
                getInput('message').innerText=res.data['message'];
                showMessage(3000);
                getInput('form-up').reset();
-               await getBrand();
+               await subCatList();
                
             }
         }
