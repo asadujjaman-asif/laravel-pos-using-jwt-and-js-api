@@ -36,15 +36,13 @@
             const response = await axios.get(url);
             let subCatTable=$("#subCatTable");
             let subCatList=$("#subCatList");
-    
             subCatTable.DataTable().destroy();
             subCatList.empty();
-            
             response.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
-                    <td>${item['name']}</td>
                     <td>${item.category['category_name']}</td>
+                    <td>${item['name']}</td>
                     <td>${item['description']}</td>
                     <td>
                         <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn">Edit</button>
