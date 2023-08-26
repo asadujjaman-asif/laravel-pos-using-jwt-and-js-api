@@ -4,6 +4,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserRegister;
 use App\Http\Middleware\TokenVerifyMiddleware;
@@ -75,4 +76,13 @@ Route::controller(SubCategoryController::class)->group(function(){
     Route::post('/sub-category-by-id', 'subCategoryById')->name('sub-category-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-sub-category', 'updateSubCategory')->name('update-sub-category')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-sub-category', 'deleteSubCategory')->name('delete-sub-category')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(UnitController::class)->group(function(){
+    //get request
+    Route::get('/unit-list', 'unitList')->name('unit-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-unit', 'getUnit')->name('get-unit')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-unit', 'createUnit')->name('create-unit')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/unit-by-id', 'unitById')->name('unit-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-unit', 'updateUnit')->name('update-unit')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-unit', 'deleteUnit')->name('delete-unit')->middleware([TokenVerifyMiddleware::class]);
 });

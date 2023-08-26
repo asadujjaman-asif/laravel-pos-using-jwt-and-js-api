@@ -22,7 +22,7 @@
                         <a  href="{{ route('sub-category-list')}}"><i class="fa fa-table fa-3x"></i> Sub Category</a>
                     </li>
                     <li  >
-                        <a  href="form.html"><i class="fa fa-edit fa-3x"></i> Forms </a>
+                        <a  href="{{ route('unit-list')}}"><i class="fa fa-edit fa-3x"></i> Unit </a>
                     </li>				
 					
 					                   
