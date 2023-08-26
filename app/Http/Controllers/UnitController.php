@@ -74,10 +74,10 @@ class UnitController extends Controller
     {
         try {
             $user_id=$request->header('id');
-            Unit::where('user_id',$user_id)->where('id',$request->category_id)->delete();
+            Unit::where('user_id',$user_id)->where('id',$request->unit_id)->delete();
             return response()->json([
                 'status' => 'success',
-                'message' =>'Category has been deleted successfully'
+                'message' =>'Unit has been deleted successfully'
             ], 200);
         }catch(Exception $e){
             return response()->json([
