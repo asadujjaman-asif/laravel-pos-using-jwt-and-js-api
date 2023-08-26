@@ -48,15 +48,13 @@ class UnitController extends Controller
     {
         try {
             $id=$request->header('id');
-            $category=Unit::findOrFail($request->category_id);
-            $category->category_name = $request->category_name;
-            $category->category_image = null;
-            $category->slug = Str::slug($request->category_name)."-".$id;
-            $category->user_id = $id;
-            $category->save();
+            $unit=Unit::findOrFail($request->unit_id);
+            $unit->name = $request->name;
+            $unit->user_id = $id;
+            $unit->save();
             return response()->json([
                 'status' => 'success',
-                'message' =>'Category has been updated successfully'
+                'message' =>'Unit has been updated successfully'
             ], 200);
         }catch(Exception $e){
             return response()->json([
@@ -88,7 +86,7 @@ class UnitController extends Controller
     }
     public function unitById(Request $request){
         $user_id=$request->header('id');
-        $result=Unit::where('user_id',$user_id)->where('id',$request->category_id)->first();
+        $result=Unit::where('user_id',$user_id)->where('id',$request->unit_id)->first();
         return $result;
     }
 }
