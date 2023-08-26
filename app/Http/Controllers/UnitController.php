@@ -14,7 +14,7 @@ class UnitController extends Controller
     {
         return view('pages.dashboard.unit-page');
     }
-    public function getUnit(Unit $request){
+    public function getUnit(Request $request){
         $id=$request->header('id');
         return Unit::where("user_id",$id)->get();
     }
@@ -25,15 +25,13 @@ class UnitController extends Controller
     {
         try {
             $id=$request->header('id');
-            $category=new Unit();
-            $category->category_name = $request->category_name;
-            $category->category_image = null;
-            $category->slug = Str::slug($request->category_name)."-".$id;
-            $category->user_id = $id;
-            $category->save();
+            $unit=new Unit();
+            $unit->name = $request->name;
+            $unit->user_id = $id;
+            $unit->save();
             return response()->json([
                 'status' => 'success',
-                'message' =>'Category has been created successfully'
+                'message' =>'Unit has been created successfully'
             ], 200);
         }catch(Exception $e){
             return response()->json([
