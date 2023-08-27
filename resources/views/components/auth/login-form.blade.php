@@ -45,6 +45,7 @@
 				let URL="/user-login";
 				getInput('loader').style.display='block';
 				let result = await axios.post(URL,formData);
+				console.log(result);
 				getInput('loader').style.display='none';
 				if(result.status===200 && result.data['status']==='success'){
 					window.location.href="/dashboard";

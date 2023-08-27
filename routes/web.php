@@ -4,6 +4,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserRegister;
@@ -85,4 +86,13 @@ Route::controller(UnitController::class)->group(function(){
     Route::post('/unit-by-id', 'unitById')->name('unit-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-unit', 'updateUnit')->name('update-unit')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-unit', 'deleteUnit')->name('delete-unit')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(ProductController::class)->group(function(){
+    //get request
+    Route::get('/product-list', 'productList')->name('product-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-product', 'getProduct')->name('get-product')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-product', 'createUProduct')->name('create-product')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/product-by-id', 'productById')->name('product-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-product', 'updateProduct')->name('update-product')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-product', 'deleteProduct')->name('delete-product')->middleware([TokenVerifyMiddleware::class]);
 });

@@ -11,9 +11,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function productList()
     {
-        //
+        return view('pages.dashboard.product-page');
     }
 
     /**

@@ -7,27 +7,30 @@
 				
 					
                     <li>
-                        <a class="active-menu"  href="{{route('dashboard')}}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a class="active-menu"  href="{{route('dashboard')}}"><i class="fa fa-dashboard fa-1x"></i> Dashboard</a>
                     </li>
                      <li>
-                        <a  href="{{ route('user-profile')}}"><i class="fa fa-desktop fa-3x"></i> My Profile</a>
+                        <a  href="{{ route('user-profile')}}"><i class="fa fa-desktop fa-1x"></i> My Profile</a>
                     </li>
                     <li>
-                        <a  href="{{ route('category-list')}}"><i class="fa fa-qrcode fa-3x"></i>Manage category</a>
+                        <a  href="{{ route('category-list')}}"><i class="fa fa-qrcode fa-1x"></i>Manage category</a>
                     </li>
 						   <li  >
-                        <a   href="{{ route('brand-list')}}"><i class="fa fa-bar-chart-o fa-3x"></i> Mange Brand</a>
+                        <a   href="{{ route('brand-list')}}"><i class="fa fa-bar-chart-o fa-1x"></i> Mange Brand</a>
                     </li>	
                       <li  >
-                        <a  href="{{ route('sub-category-list')}}"><i class="fa fa-table fa-3x"></i> Sub Category</a>
+                        <a  href="{{ route('sub-category-list')}}"><i class="fa fa-table fa-1x"></i> Sub Category</a>
                     </li>
                     <li  >
-                        <a  href="{{ route('unit-list')}}"><i class="fa fa-edit fa-3x"></i> Unit </a>
+                        <a  href="{{ route('unit-list')}}"><i class="fa fa-edit fa-1x"></i> Unit </a>
+                    </li>
+                    <li  >
+                        <a  href="{{ route('product-list')}}"><i class="fa fa-edit fa-1x"></i> Manage Product </a>
                     </li>				
 					
 					                   
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap fa-1x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">Second Level Link</a>
@@ -54,7 +57,7 @@
                         </ul>
                       </li>  
                   <li  >
-                        <a  href="blank.html"><i class="fa fa-square-o fa-3x"></i> Blank Page</a>
+                        <a  href="blank.html"><i class="fa fa-square-o fa-1x"></i> Blank Page</a>
                     </li>	
                 </ul>
                

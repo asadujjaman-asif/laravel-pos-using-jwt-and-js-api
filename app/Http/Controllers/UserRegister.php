@@ -50,9 +50,10 @@ class UserRegister extends Controller
         
     }
     public function login(Request $request){
-       $user=User::where('email','=',$request->email)
-                ->where('password','=',$request->password)
-                ->select('id')->first();
+      try{
+        $user=User::where('email','=',$request->email)
+        ->where('password','=',$request->password)
+        ->select('id')->first();
         if($user!==null) {
             $token=JWTToken::createTocken($request->email,$user->id);
             return response()->json([
@@ -67,6 +68,12 @@ class UserRegister extends Controller
                 'message' => 'Unauthorized user'
             ],200);
         }
+      }catch(Exception $e){
+        return response()->json([
+            'status' => 'error',
+            'message' =>$e->getMessage()
+        ],200);
+      }
         
    }
     public function sendOTPCode(Request $request){
