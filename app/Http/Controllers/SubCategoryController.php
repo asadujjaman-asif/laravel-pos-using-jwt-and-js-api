@@ -101,4 +101,14 @@ class SubCategoryController extends Controller
         $result=SubCategory::where('user_id',$user_id)->where('id',$request->subCat_id)->first();
         return $result;
     }
+    /**
+     * @param Request $request
+     * @return Response
+     * @response return Sub Category list by category id for Suggested Sub category
+    */
+    public function subCatBySubId(Request $request){
+        $user_id=$request->header('id');
+        $result=SubCategory::where('user_id',$user_id)->where('category_id',$request->catId)->get();
+        return $result;
+    }
 }

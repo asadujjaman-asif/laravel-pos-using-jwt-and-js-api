@@ -10,16 +10,49 @@
       </div>
       <form id="form">
         <div class="modal-body">
+          @include('components.dashboard.inc.category')
+          @include('components.dashboard.inc.create-sub-cat')
+          @include('components.dashboard.inc.create-brand')
+          @include('components.dashboard.inc.create-unit')
           <div class="form-group input-control">
-            <label for="brandName" class="col-form-label">Brand name</label>
-            <input type="text" class="form-control" id="brandName" placeholder="Brand name" msg="Brand name is required.">
+            <label for="productName" class="col-form-label">Product name</label>
+            <input type="text" class="form-control" id="productName" placeholder="Product name...." msg="Product name is required.">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
+          <div class="form-group input-control">
+            <label for="purchasePrice" class="col-form-label">Purchase Price</label>
+            <input type="text" class="form-control" id="purchasePrice" placeholder="Purchase Price..." msg="Purchase Price is required.">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
+          <div class="form-group input-control">
+            <label for="salePrice" class="col-form-label">Sale Price</label>
+            <input type="text" class="form-control" id="salePrice" placeholder="Sale Price..." msg="Sale Price is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
             <label for="brandDescription" class="col-form-label">Description</label>
-            <textarea type="text" class="form-control" rows="5" id="brandDescription" placeholder="Description...." msg="Description is required."></textarea>
+            <textarea type="text" class="form-control" rows="5" id="subCatDescription" placeholder="Description...." msg="Description is required."></textarea>
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
+          <div class="form-group input-control">
+            <label for="purchasePrice" class="col-form-label">Quantity</label>
+            <input type="text" class="form-control" id="purchasePrice" placeholder="Product Quantity..." msg="Product Quantity is required.">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
+          <div><img id="demoImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 25%;"/></div>
+          <div class="form-group input-control">
+            <label for="productImage" class="col-form-label">Product Image</label>
+            <input type="file" id="productImage" msg="Product Quantity is required." oninput="demoImg.src=window.URL.createObjectURL(this.files[0])">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -34,32 +67,45 @@
   </div>
 </div>
 <script type="text/javascript">
+  $("#category").on("change", async function(){
+    let catId=$(this).val();
+    let URL="/get-sub-cat-by-cat-id";
+    showPreLoader();
+    let response = await axios.post(URL,{catId:catId});
+    hidePreLoader();
+    response.data.forEach((item, index)=>{
+        var row = `<option value="${item['id']}">${item['name']}</option>`;
+        $("#subCategory").append(row);
+        $("#subCategory").trigger("chosen:updated");
+    });
+  });
     const formElement=getInput('form');
-    const brandName=getInput('brandName');
-    const brandDescription=getInput('brandDescription');
+    const categoryName=getInput('category');
+    const subCatName=getInput('subCatName');
+    const subCatDescription=getInput('subCatDescription');
     formElement.addEventListener('submit',async function(e){
-        e.preventDefault();
-        let required=isRequired(
-            [brandName, brandDescription]
-        );
-        if(required==true){
-            let formData={
-              name:brandName.value,
-              description:brandDescription.value,
-            }
-            getInput('modal-close').click();
-            let URL="/create-brand";
-            showPreLoader();
-            showMessage(3000);
-            let result = await axios.post(URL,formData);
-            hidePreLoader();
-            if(result.status == 200 && result.data['status']=='success'){
-                getInput('message').innerText=result.data['message'];
-                showMessage(3000);
-                getInput('form').reset();
-                await getBrand();
-               
-            }
-        }
+      e.preventDefault();
+      let required=isRequired(
+        [categoryName, subCatName,subCatDescription]
+      );
+      if(required==true){
+          let formData={
+            category_id:categoryName.value,
+            name:subCatName.value,
+            description:subCatDescription.value,
+          }
+          getInput('modal-close').click();
+          let URL="/create-sub-category";
+          showPreLoader();
+          let result = await axios.post(URL,formData);
+          hidePreLoader();
+          if(result.status == 200 && result.data['status']=='success'){
+              getInput('message').innerText=result.data['message'];
+              showMessage(3000);
+              getInput('form').reset();
+              await subCatList();
+              
+          }
+      }
     });
   </script>

@@ -77,6 +77,7 @@ Route::controller(SubCategoryController::class)->group(function(){
     Route::post('/sub-category-by-id', 'subCategoryById')->name('sub-category-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-sub-category', 'updateSubCategory')->name('update-sub-category')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-sub-category', 'deleteSubCategory')->name('delete-sub-category')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/get-sub-cat-by-cat-id', 'subCatBySubId')->name('get-sub-cat-by-cat-id')->middleware([TokenVerifyMiddleware::class]);
 });
 Route::controller(UnitController::class)->group(function(){
     //get request
