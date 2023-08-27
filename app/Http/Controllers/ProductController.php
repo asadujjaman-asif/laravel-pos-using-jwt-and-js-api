@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
+use Exception;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -19,9 +21,10 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function getProduct(Request $request)
     {
-        //
+        $id=$request->header('id');
+        return Product::where("user_id",$id)->get();
     }
 
     /**
