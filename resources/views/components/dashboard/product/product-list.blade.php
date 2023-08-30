@@ -16,6 +16,7 @@
                                 <th>Purchase Price</th>
                                 <th>Sale Price</th>
                                 <th>Quantity</th>
+                                <th>Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -48,6 +49,7 @@
                     <td>${item['purchasePrice']}</td>
                     <td>${item['salePrice']}</td>
                     <td>${item['qty']}</td>
+                    <td><img src="${item['image']}" style="width: 80%;"/></td>
                     <td>
                         <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn">Edit</button>
                         <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn">Delete</button>
