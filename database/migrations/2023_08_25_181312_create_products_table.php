@@ -14,7 +14,7 @@ return new class extends Migration
         if(!Schema::hasTable('products')){
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->string('SKU',8);
+                $table->string('SKU',12);
                 $table->string('productName');
                 $table->string('purchasePrice');
                 $table->string('salePrice');
@@ -29,6 +29,8 @@ return new class extends Migration
                 $table->foreign('sub_category_id')->references('id')->on('sub_categories')->cascadeOnDelete()->cascadeOnUpdate();
                 $table->unsignedBigInteger('unit_id');
                 $table->foreign('unit_id')->references('id')->on('units')->cascadeOnDelete()->cascadeOnUpdate();
+                $table->unsignedBigInteger('brand_id');
+                $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete()->cascadeOnUpdate();
                 $table->string('image');
                 $table->timestamps();
             });

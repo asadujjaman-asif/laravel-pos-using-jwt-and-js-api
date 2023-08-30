@@ -1,7 +1,7 @@
 
 <div class="form-group input-control">
     <label for="createUnit" class="col-form-label ">Unit name</label>
-    <select id="createUnit" class="form-control  chosen-select" msg="Unit name is required.">
+    <select id="unit" class="form-control  chosen-select" msg="Unit name is required.">
         <option value="">Select unit</option>
     </select>
     <br>
@@ -10,15 +10,15 @@
     <small class="error"></small>
 </div>
 <script type="text/javascript">
-    getCategory();
-    async function getCategory(){
-        let url="/get-brand";
+    geUnit();
+    async function geUnit(){
+        let url="/get-unit";
         try{
             const response = await axios.get(url);
             response.data.forEach((item, index)=>{
                 var row = `<option value="${item['id']}">${item['name']}</option>`;
-                $("#createUnit").append(row);
-                $("#createUnit").trigger("chosen:updated");
+                $("#unit").append(row);
+                $("#unit").trigger("chosen:updated");
             });
         }catch(error){
             alert(error);

@@ -92,7 +92,7 @@ Route::controller(ProductController::class)->group(function(){
     //get request
     Route::get('/product-list', 'productList')->name('product-list')->middleware([TokenVerifyMiddleware::class]);
     Route::get('/get-product', 'getProduct')->name('get-product')->middleware([TokenVerifyMiddleware::class]);
-    Route::post('/create-product', 'createUProduct')->name('create-product')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-product', 'createProduct')->name('create-product')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/product-by-id', 'productById')->name('product-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-product', 'updateProduct')->name('update-product')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-product', 'deleteProduct')->name('delete-product')->middleware([TokenVerifyMiddleware::class]);

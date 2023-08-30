@@ -10,7 +10,7 @@
     <small class="error"></small>
 </div>
 <script type="text/javascript">
-   /* getSubCategory();
+   getSubCategory();
     async function getSubCategory(){
         let url="/get-sub-category";
         try{
@@ -23,5 +23,5 @@
         }catch(error){
             alert(error);
         }
-    }*/
+    }
 </script>

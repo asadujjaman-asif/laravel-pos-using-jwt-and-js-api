@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create new brand</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create new Product</h5>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
@@ -36,15 +36,15 @@
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
-            <label for="brandDescription" class="col-form-label">Description</label>
-            <textarea type="text" class="form-control" rows="5" id="subCatDescription" placeholder="Description...." msg="Description is required."></textarea>
+            <label for="productDescription" class="col-form-label">Description</label>
+            <textarea type="text" class="form-control" rows="5" id="productDescription" placeholder="Description...." msg="Description is required."></textarea>
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
-            <label for="purchasePrice" class="col-form-label">Quantity</label>
-            <input type="text" class="form-control" id="purchasePrice" placeholder="Product Quantity..." msg="Product Quantity is required.">
+            <label for="quantity" class="col-form-label">Quantity</label>
+            <input type="text" class="form-control" id="quantity" placeholder="Product Quantity..." msg="Product Quantity is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -55,7 +55,7 @@
             <input type="file" id="productImage" msg="Product Quantity is required." oninput="demoImg.src=window.URL.createObjectURL(this.files[0])">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
-            <small class="error"></small>
+            <small id="img-error" class="error"></small>
           </div>
         </div>
         <div class="modal-footer">
@@ -70,6 +70,7 @@
   $("#category").on("change", async function(){
     let catId=$(this).val();
     let URL="/get-sub-cat-by-cat-id";
+    $("#subCategory").empty();
     showPreLoader();
     let response = await axios.post(URL,{catId:catId});
     hidePreLoader();
@@ -81,29 +82,76 @@
   });
     const formElement=getInput('form');
     const categoryName=getInput('category');
-    const subCatName=getInput('subCatName');
-    const subCatDescription=getInput('subCatDescription');
+    const subCategory=getInput('subCategory');
+    const createBrand=getInput('createBrand');
+    const productName=getInput('productName');
+    const unit=getInput('unit');
+    const purchasePrice=getInput('purchasePrice');
+    const salePrice=getInput('salePrice');
+    const productDescription=getInput('productDescription');
+    const quantity=getInput('quantity');
+    
+    
     formElement.addEventListener('submit',async function(e){
       e.preventDefault();
+      const productImage=getInput('productImage').files[0];
       let required=isRequired(
-        [categoryName, subCatName,subCatDescription]
+        [
+          categoryName, 
+          subCategory,
+          createBrand,
+          unit,
+          purchasePrice,
+          productName, 
+          salePrice, 
+          productDescription, 
+          quantity
+        ]
       );
+      if(!productImage){
+        getInput('img-error').innerHTML="Image feild is required"; 
+        return false;
+      }
+      
       if(required==true){
-          let formData={
+        let formData=new FormData();
+        let data=[];
+        data.push({
             category_id:categoryName.value,
-            name:subCatName.value,
-            description:subCatDescription.value,
-          }
+            sub_category_id:subCategory.value,
+            brand_id:createBrand.value,
+            unit_id:unit.value,
+            productName:productName.value,
+            purchasePrice:purchasePrice.value,
+            salePrice:salePrice.value,
+            qty:quantity.value,
+            productDescription:productDescription.value,
+          });
+          alert(categoryName.value);
+          formData.append('category_id',categoryName.value);
+          formData.append('sub_category_id',subCategory.value);
+          formData.append('brand_id',createBrand.value);
+          formData.append('unit_id',unit.value);
+          formData.append('productName',productName.value,);
+          formData.append('purchasePrice',purchasePrice.value);
+          formData.append('salePrice',salePrice.value);
+          formData.append('qty',quantity.value);
+          formData.append('productDescription',productDescription.value);
+          formData.append('image',productImage);
           getInput('modal-close').click();
-          let URL="/create-sub-category";
+          let URL="/create-product";
           showPreLoader();
-          let result = await axios.post(URL,formData);
+          let result = await axios.post(URL,formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
           hidePreLoader();
           if(result.status == 200 && result.data['status']=='success'){
               getInput('message').innerText=result.data['message'];
               showMessage(3000);
               getInput('form').reset();
-              await subCatList();
+              await getProduct();
               
           }
       }
