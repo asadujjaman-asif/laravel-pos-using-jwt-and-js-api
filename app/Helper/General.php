@@ -1,6 +1,7 @@
 <?php
 namespace app\Helper;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 class General{
     public static function fileUpload($file,$user_id){
         $t=time();
@@ -9,5 +10,9 @@ class General{
         $img_url="uploads/{$img_name}";
         $file->move(public_path('uploads'),$img_name);
         return $img_url;
+    }
+    public static function crateSlug($item){
+        $t=time();
+        return Str::slug($item)."-".$t;
     }
 }

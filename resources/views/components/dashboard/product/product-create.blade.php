@@ -147,6 +147,7 @@
             },
           });
           hidePreLoader();
+          console.log(result);
           if(result.status == 200 && result.data['status']=='success'){
               getInput('message').innerText=result.data['message'];
               showMessage(3000);

@@ -36,6 +36,7 @@ class ProductController extends Controller
     public function createProduct(Request $request)
     {
         try {
+            $max=Product::max('id');
             $id=$request->header('id');
             $img=$request->file('image');
             $product=new Product();
@@ -48,7 +49,7 @@ class ProductController extends Controller
             $product->salePrice = $request->salePrice;
             $product->qty = $request->qty;
             $product->shortDescription = $request->productDescription;
-            $product->slug = Str::slug($request->productName)."-".$id;
+            $product->slug =General::crateSlug($request->productName);
             $product->user_id = $id;
             $product->SKU = Str::of($request->productName)->upper()->substr(0,3)."-".rand(10000,99999);
             $product->image = General::fileUpload($img,$id);
@@ -77,9 +78,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function productById(Request $request)
     {
-        //
+        $user_id=$request->header('id');
+        $result=Product::where('user_id',$user_id)->where('id',$request->product_id)->first();
+        return $result;
     }
 
     /**
