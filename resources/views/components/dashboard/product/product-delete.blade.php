@@ -5,6 +5,7 @@
                 <h3 class=" mt-3 text-warning">Delete !</h3>
                 <p class="mb-3">Are you sure to delete? you can't get it back.</p>
                 <input type="hidden" class="d-none" id="deleteID"/>
+                <input type="hidden" class="d-none" id="filePath"/>
             </div>
             <div class="modal-footer justify-content-end">
                 <div>
@@ -19,9 +20,10 @@
 <script>
     async function itemDelete(){ 
         let id=document.getElementById('deleteID').value;
+        let file_path=document.getElementById('filePath').value;
         document.getElementById('modal-close-delete').click();
         showPreLoader();
-        let result=await axios.post("/delete-product",{product_id:id})
+        let result=await axios.post("/delete-product",{product_id:id,file_path:file_path})
         hidePreLoader();
         if(result.status == 200 && result.data['status']=='success'){
             getInput('message').innerText=result.data['message'];

@@ -51,8 +51,8 @@
                     <td>${item['qty']}</td>
                     <td><img src="${item['image']}" style="width: 50%;"/></td>
                     <td>
-                        <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn">Edit</button>
-                        <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn">Delete</button>
+                        <button data-path="${item['image']}" data-id="${item['id']}"class="btn btn-sm btn-success editBtn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button data-path="${item['image']}" data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn"><i class="fa fa-trash-o"></i></button>
                     </td>
                 </tr>`
                 productList.append(row);
@@ -62,13 +62,16 @@
         }
         $(".editBtn").on('click',async function() {
             let id = $(this).data('id');
-            await fillUpInputField(id);
+            let path = $(this).data('path');
+            await fillUpInputField(id,path);
             $("#update-modal").modal("show");
         });
         $(".deleteBtn").on('click',async function() {
             let id = $(this).data('id');
+            let path = $(this).data('path');
             $("#delete-modal").modal("show");
             $("#deleteID").val(id);
+            $("#filePath").val(path);
         });
         new DataTable('#productTable',{
         order:[[0,'desc']],

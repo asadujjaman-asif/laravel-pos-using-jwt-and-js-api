@@ -127,7 +127,6 @@
             qty:quantity.value,
             productDescription:productDescription.value,
           });
-          alert(categoryName.value);
           formData.append('category_id',categoryName.value);
           formData.append('sub_category_id',subCategory.value);
           formData.append('brand_id',createBrand.value);

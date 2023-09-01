@@ -8,7 +8,7 @@
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
       </div>
-      <form id="form">
+      <form id="up-form">
         <div class="modal-body">
           @include('components.dashboard.inc.update-cat')
           @include('components.dashboard.inc.update-sub-cat')
@@ -50,30 +50,32 @@
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
-          <div><img id="demoImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 25%;"/></div>
+          <div><img id="oldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 25%;"/></div>
           <div class="form-group input-control">
-            <label for="productImage" class="col-form-label">Product Image</label>
-            <input type="file" id="productImage" msg="Product Quantity is required." oninput="demoImg.src=window.URL.createObjectURL(this.files[0])">
+            <label for="upProductImage" class="col-form-label">Product Image</label>
+            <input type="file" id="upProductImage" msg="Product Quantity is required." oninput="oldImg.src=window.URL.createObjectURL(this.files[0])">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small id="img-error" class="error"></small>
+            <input type="hidden" class="d-none" id="filePath">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal-close">Close</button>
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="up-modal-close">Close</button>
+          <button type="button" onclick="updateProduct()" class="btn btn-primary">Update</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-  async function fillUpInputField(id){
+  async function fillUpInputField(id,path){
       getInput('productId').value=id;
+      getInput('oldImg').src=path;
+      getInput('filePath').value=path;
       let url="product-by-id";
       showPreLoader();
       var result=await axios.post(url,{product_id:id});
-      console.log(result);
       hidePreLoader();
       getInput('upProductName').value=result.data['productName'];
       getInput('upPurchasePrice').value=result.data['purchasePrice'];
@@ -102,66 +104,48 @@
         $("#subCategory").trigger("chosen:updated");
     });
   });
-    /*const formElement=getInput('form');
-    const categoryName=getInput('category');
-    const subCategory=getInput('subCategory');
-    const createBrand=getInput('createBrand');
-    const productName=getInput('productName');
-    const unit=getInput('unit');
-    const purchasePrice=getInput('purchasePrice');
-    const salePrice=getInput('salePrice');
-    const productDescription=getInput('productDescription');
-    const quantity=getInput('quantity');
-    
-    
-    formElement.addEventListener('submit',async function(e){
-      e.preventDefault();
-      const productImage=getInput('productImage').files[0];
+    async function updateProduct(){
+      const upProductName=getInput('upProductName');
+      const upPurchasePrice=getInput('upPurchasePrice');
+      const upSalePrice=getInput('upSalePrice');
+      const upProductDescription=getInput('upProductDescription');
+      const upQuantity=getInput('upQuantity');
+      const updateBrand=getInput('updateBrand');
+      const upCategory=getInput('upCategory');
+      const upSubCategory=getInput('upSubCategory');
+      const upUnit=getInput('upUnit');
+      const productId=getInput('productId');
+      const file_path=getInput('filePath');
+      const productImage=getInput('upProductImage').files[0];
       let required=isRequired(
         [
-          categoryName, 
-          subCategory,
-          createBrand,
-          unit,
-          purchasePrice,
-          productName, 
-          salePrice, 
-          productDescription, 
-          quantity
+          upProductName, 
+          upPurchasePrice,
+          upSalePrice,
+          upProductDescription,
+          upQuantity,
+          updateBrand, 
+          upCategory, 
+          upSubCategory, 
+          upUnit
         ]
       );
-      if(!productImage){
-        getInput('img-error').innerHTML="Image feild is required"; 
-        return false;
-      }
-      
       if(required==true){
         let formData=new FormData();
-        let data=[];
-        data.push({
-            category_id:categoryName.value,
-            sub_category_id:subCategory.value,
-            brand_id:createBrand.value,
-            unit_id:unit.value,
-            productName:productName.value,
-            purchasePrice:purchasePrice.value,
-            salePrice:salePrice.value,
-            qty:quantity.value,
-            productDescription:productDescription.value,
-          });
-          alert(categoryName.value);
-          formData.append('category_id',categoryName.value);
-          formData.append('sub_category_id',subCategory.value);
-          formData.append('brand_id',createBrand.value);
-          formData.append('unit_id',unit.value);
-          formData.append('productName',productName.value,);
-          formData.append('purchasePrice',purchasePrice.value);
-          formData.append('salePrice',salePrice.value);
-          formData.append('qty',quantity.value);
-          formData.append('productDescription',productDescription.value);
+          formData.append('category_id',upCategory.value);
+          formData.append('sub_category_id',upSubCategory.value);
+          formData.append('brand_id',updateBrand.value);
+          formData.append('unit_id',upUnit.value);
+          formData.append('productName',upProductName.value,);
+          formData.append('purchasePrice',upPurchasePrice.value);
+          formData.append('salePrice',upSalePrice.value);
+          formData.append('qty',upQuantity.value);
+          formData.append('productDescription',upProductDescription.value);
+          formData.append('file_path',file_path.value);
+          formData.append('product_id',productId.value);
           formData.append('image',productImage);
           getInput('modal-close').click();
-          let URL="/create-product";
+          let URL="/update-product";
           showPreLoader();
           let result = await axios.post(URL,formData, {
             headers: {
@@ -169,14 +153,15 @@
             },
           });
           hidePreLoader();
-          console.log(result);
           if(result.status == 200 && result.data['status']=='success'){
               getInput('message').innerText=result.data['message'];
               showMessage(3000);
-              getInput('form').reset();
+              getInput('up-modal-close').reset();
               await getProduct();
               
+          }else{
+            alert('Something went wrong');
           }
       }
-    });*/
+    }
   </script>
