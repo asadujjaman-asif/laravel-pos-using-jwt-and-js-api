@@ -30,16 +30,16 @@
 					
 					                   
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-1x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap fa-1x"></i> Ecommerse Setup<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Second Level Link</a>
+                                <a href="#"><i class='fas fa-images fa-1x'></i> Slider Setup</a>
                             </li>
                             <li>
                                 <a href="#">Second Level Link</a>
                             </li>
                             <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <a href="#">Ecommerse Setup<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
                                         <a href="#">Third Level Link</a>

@@ -97,3 +97,12 @@ Route::controller(ProductController::class)->group(function(){
     Route::post('/update-product', 'updateProduct')->name('update-product')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-product', 'deleteProduct')->name('delete-product')->middleware([TokenVerifyMiddleware::class]);
 });
+Route::controller(ProductController::class)->group(function(){
+    //get request
+    Route::get('/slider-list', 'productSlider')->name('slider-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-slider', 'getSlider')->name('get-slider')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-slider', 'createSlider')->name('create-slider')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/slider-by-id', 'sliderById')->name('slider-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-slider', 'updateSlider')->name('update-slider')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-slider', 'deleteSlider')->name('delete-slider')->middleware([TokenVerifyMiddleware::class]);
+});
