@@ -33,7 +33,7 @@
                         <a href="#"><i class="fa fa-sitemap fa-1x"></i> Ecommerse Setup<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#"><i class='fas fa-images fa-1x'></i> Slider Setup</a>
+                                <a href="{{ route('slider-list')}}"><i class='fas fa-images fa-1x'></i> Slider Setup</a>
                             </li>
                             <li>
                                 <a href="#">Second Level Link</a>
