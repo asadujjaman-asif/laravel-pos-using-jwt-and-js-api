@@ -61,10 +61,10 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function productById(Request $request)
+    public function sliderById(Request $request)
     {
         $user_id=$request->header('id');
-        $result=Slider::where('user_id',$user_id)->where('id',$request->product_id)->first();
+        $result=Slider::where('user_id',$user_id)->where('id',$request->slider_id)->first();
         return $result;
     }
 

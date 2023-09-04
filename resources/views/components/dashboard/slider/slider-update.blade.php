@@ -3,62 +3,45 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update slider</h5>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
       </div>
       <form id="up-form">
-        <div class="modal-body">
-          @include('components.dashboard.inc.update-cat')
-          @include('components.dashboard.inc.update-sub-cat')
-          @include('components.dashboard.inc.update-brand')
-          @include('components.dashboard.inc.update-unit')
+      <div class="modal-body">
+          @include('components.dashboard.inc.update-product')
           <div class="form-group input-control">
-            <label for="upProductName" class="col-form-label">Product name</label>
-            <input type="text" class="form-control" id="upProductName" placeholder="Product name...." msg="Product name is required.">
-            <input type="hidden" id="productId">
+            <label for="upTitle" class="col-form-label">Title</label>
+            <input type="text" class="form-control" id="upTitle" placeholder="Title..." msg="Title is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
-            <label for="upPurchasePrice" class="col-form-label">Purchase Price</label>
-            <input type="text" class="form-control" id="upPurchasePrice" placeholder="Purchase Price..." msg="Purchase Price is required.">
+            <label for="upDescription" class="col-form-label">Description</label>
+            <textarea type="text" class="form-control" rows="5" id="upDescription" placeholder="Description...." msg="Description is required."></textarea>
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div class="form-group input-control">
-            <label for="upSalePrice" class="col-form-label">Sale Price</label>
-            <input type="text" class="form-control" id="upSalePrice" placeholder="Sale Price..." msg="Sale Price is required.">
-            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
-            <i class="fa-regular fa-circle-check success-icon"></i>
-            <small class="error"></small>
-          </div>
-          <div class="form-group input-control">
-            <label for="upProductDescription" class="col-form-label">Description</label>
-            <textarea type="text" class="form-control" rows="5" id="upProductDescription" placeholder="Description...." msg="Description is required."></textarea>
-            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
-            <i class="fa-regular fa-circle-check success-icon"></i>
-            <small class="error"></small>
-          </div>
-          <div class="form-group input-control">
-            <label for="upQuantity" class="col-form-label">Quantity</label>
-            <input type="text" class="form-control" id="upQuantity" placeholder="Product Quantity..." msg="Product Quantity is required.">
+            <label for="upPrice" class="col-form-label">Price</label>
+            <input type="text" class="form-control" id="upPrice" placeholder="Product Price..." msg="Price is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
           <div><img id="oldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 25%;"/></div>
           <div class="form-group input-control">
-            <label for="upProductImage" class="col-form-label">Product Image</label>
-            <input type="file" id="upProductImage" msg="Product Quantity is required." oninput="oldImg.src=window.URL.createObjectURL(this.files[0])">
+            <label for="upSliderImage" class="col-form-label">Slider Image</label>
+            <input type="file" id="upSliderImage" msg="Product Quantity is required." oninput="oldImg.src=window.URL.createObjectURL(this.files[0])">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small id="img-error" class="error"></small>
-            <input type="hidden" class="d-none" id="filePath">
           </div>
+          <input type="hidden" class="form-control" id="sliderId" >
+          <input type="hidden" class="form-control" id="filePath" >
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="up-modal-close">Close</button>
@@ -70,26 +53,18 @@
 </div>
 <script type="text/javascript">
   async function fillUpInputField(id,path){
-      getInput('productId').value=id;
+      getInput('sliderId').value=id;
       getInput('oldImg').src=path;
       getInput('filePath').value=path;
-      let url="product-by-id";
+      let url="slider-by-id";
       showPreLoader();
-      var result=await axios.post(url,{product_id:id});
+      var result=await axios.post(url,{slider_id:id});
       hidePreLoader();
-      getInput('upProductName').value=result.data['productName'];
-      getInput('upPurchasePrice').value=result.data['purchasePrice'];
-      getInput('upSalePrice').value=result.data['salePrice'];
-      getInput('upProductDescription').value=result.data['shortDescription'];
-      getInput('upQuantity').value=result.data['qty'];
-      getInput('updateBrand').value=result.data['brand_id'];
-      getInput('upCategory').value=result.data['category_id'];
-      getInput('upSubCategory').value=result.data['sub_category_id'];
-      getInput('upUnit').value=result.data['unit_id'];
-      $("#updateBrand").trigger("chosen:updated");
-      $("#upCategory").trigger("chosen:updated");
-      $("#upSubCategory").trigger("chosen:updated");
-      $("#upUnit").trigger("chosen:updated");
+      getInput('upTitle').value=result.data['title'];
+      getInput('upDescription').value=result.data['description'];
+      getInput('upPrice').value=result.data['price'];
+      getInput('upProductId').value=result.data['product_id'];
+      $("#upProductId").trigger("chosen:updated");
   }
   $("#category").on("change", async function(){
     let catId=$(this).val();
@@ -116,7 +91,7 @@
       const upUnit=getInput('upUnit');
       const productId=getInput('productId');
       const file_path=getInput('filePath');
-      const productImage=getInput('upProductImage').files[0];
+      const productImage=getInput('upSliderImage').files[0];
       let required=isRequired(
         [
           upProductName, 
