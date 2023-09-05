@@ -71,33 +71,25 @@ class SliderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateProduct(Request $request)
+    public function updateSlider(Request $request)
     {
         try {
             $max=Slider::max('id');
             $id=$request->header('id');
-            $product=Slider::findOrFail($request->product_id);
-            $product->category_id = $request->category_id;
-            $product->sub_category_id = $request->sub_category_id;
-            $product->brand_id = $request->brand_id;
-            $product->unit_id = $request->unit_id;
-            $product->productName = $request->productName;
-            $product->purchasePrice = $request->purchasePrice;
-            $product->salePrice = $request->salePrice;
-            $product->qty = $request->qty;
-            $product->shortDescription = $request->productDescription;
-            $product->slug =General::crateSlug($request->productName);
-            $product->user_id = $id;
-            $product->SKU = Str::of($request->productName)->upper()->substr(0,3)."-".rand(10000,99999);
+            $slider=Slider::where('user_id',$id)->where('id',$request->slider_id)->first();
+            $slider->product_id = $request->product_id;
+            $slider->title = $request->title;
+            $slider->price = $request->price;
+            $slider->description = $request->description;
             if($request->hasFile('image')){
                 $img=$request->file('image');
-                $product->image = General::fileUpload($img,$id);
+                $slider->image = General::fileUpload($img,$id,'sliders');
                 File::delete($request->file_path);
             }
-            $product->save();
+            $slider->save();
             return response()->json([
                 'status' => 'success',
-                'message' =>'Product has been updated successfully'
+                'message' =>'Slider has been updated successfully'
             ], 200);
         }catch(Exception $e){
             return response()->json([

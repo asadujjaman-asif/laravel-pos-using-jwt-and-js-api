@@ -80,59 +80,45 @@
     });
   });
     async function updateProduct(){
-      const upProductName=getInput('upProductName');
-      const upPurchasePrice=getInput('upPurchasePrice');
-      const upSalePrice=getInput('upSalePrice');
-      const upProductDescription=getInput('upProductDescription');
-      const upQuantity=getInput('upQuantity');
-      const updateBrand=getInput('updateBrand');
-      const upCategory=getInput('upCategory');
-      const upSubCategory=getInput('upSubCategory');
-      const upUnit=getInput('upUnit');
-      const productId=getInput('productId');
-      const file_path=getInput('filePath');
-      const productImage=getInput('upSliderImage').files[0];
+      const upTitle=getInput('upTitle');
+      const upDescription=getInput('upDescription');
+      const upPrice=getInput('upPrice');
+      const upProductId=getInput('upProductId');
+      const sliderId=getInput('sliderId');
+      const filePath=getInput('filePath');
+      const sliderImage=getInput('upSliderImage').files[0];
       let required=isRequired(
         [
-          upProductName, 
-          upPurchasePrice,
-          upSalePrice,
-          upProductDescription,
-          upQuantity,
-          updateBrand, 
-          upCategory, 
-          upSubCategory, 
-          upUnit
+          upTitle, 
+          upDescription,
+          upPrice,
+          upProductId
         ]
       );
       if(required==true){
         let formData=new FormData();
-          formData.append('category_id',upCategory.value);
-          formData.append('sub_category_id',upSubCategory.value);
-          formData.append('brand_id',updateBrand.value);
-          formData.append('unit_id',upUnit.value);
-          formData.append('productName',upProductName.value,);
-          formData.append('purchasePrice',upPurchasePrice.value);
-          formData.append('salePrice',upSalePrice.value);
-          formData.append('qty',upQuantity.value);
-          formData.append('productDescription',upProductDescription.value);
-          formData.append('file_path',file_path.value);
-          formData.append('product_id',productId.value);
-          formData.append('image',productImage);
-          getInput('modal-close').click();
-          let URL="/update-product";
-          showPreLoader();
-          let result = await axios.post(URL,formData, {
+        formData.append('product_id',upProductId.value);
+        formData.append('title',upTitle.value);
+        formData.append('description',upDescription.value);
+        formData.append('price',upPrice.value);
+        formData.append('slider_id',sliderId.value);
+        formData.append('file_path',filePath.value);
+        formData.append('image',sliderImage);
+        getInput('up-modal-close').click();
+        let URL="/update-slider";
+        showPreLoader();
+        let result = await axios.post(URL,formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           });
           hidePreLoader();
+          console.log(result);
           if(result.status == 200 && result.data['status']=='success'){
               getInput('message').innerText=result.data['message'];
               showMessage(3000);
-              getInput('up-modal-close').reset();
-              await getProduct();
+              getInput('up-form').reset();
+              await getSlider();
               
           }else{
             alert('Something went wrong');
