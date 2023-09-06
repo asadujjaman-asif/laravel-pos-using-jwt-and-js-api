@@ -28,18 +28,19 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
+    var brandLists = [];
     getBrand();
     async function getBrand(){
         let url="/get-brand";
         try{
             const response = await axios.get(url);
+            brandLists=response.data;
             let BrandTable=$("#BrandTable");
             let brandList=$("#brandList");
     
             BrandTable.DataTable().destroy();
             brandList.empty();
-            
-            response.data.forEach((item, index)=>{
+            brandLists.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['name']}</td>

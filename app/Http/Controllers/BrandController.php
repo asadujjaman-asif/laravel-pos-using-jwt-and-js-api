@@ -7,19 +7,24 @@ use Exception;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 use Illuminate\Support\Str;
+use App\Helper\Json;
 
 class BrandController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Load brand page
      */
     public function brandList()
     {
         return view('pages.dashboard.brand-page');
     }
+     /**
+     * Return  brand Lists
+     */
     public function getBrand(Request $request){
         $id=$request->header('id');
-        return Brand::where("user_id",$id)->get();
+        $result=Brand::where("user_id",$id)->get();
+        return Json::response('success',$result,200);
     }
     /**
      * Show the form for creating a new resource.
