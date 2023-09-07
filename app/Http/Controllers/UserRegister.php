@@ -9,6 +9,7 @@ use App\Mail\OTPMail;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use App\Helper\Json;
 
 class UserRegister extends Controller
 {
@@ -30,22 +31,16 @@ class UserRegister extends Controller
     
     public function userRegistration(Request $request){
         try{
-            User::create([
+           $result= User::create([
                 'firstName' => $request->firstName,
                 'lastName' => $request->lastName,
                 'email' => $request->email,
                 'password' => $request->password,
                 'mobile'=>$request->mobile,
             ]);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User Registration Successfully'
-            ],200);
+            return Json::response('success','User Registration Successfully',$result,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'User Registration Failed ! From Back-End'
-            ],200);
+            return Json::response('failed','User Registration Failed ! From Back-End',$e->getMessage(),200);
         }
         
     }
@@ -63,16 +58,10 @@ class UserRegister extends Controller
             ],200)->cookie('token',$token,60*24*30);;
 
         }else{
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Unauthorized user'
-            ],200);
+            return Json::response('failed','Unauthorized user','error',200);
         }
       }catch(Exception $e){
-        return response()->json([
-            'status' => 'error',
-            'message' =>$e->getMessage()
-        ],200);
+        return Json::response('failed','Unauthorized user',$e->getMessage(),200);
       }
         
    }
@@ -82,17 +71,12 @@ class UserRegister extends Controller
         if($user==1) {
             $otpCode=rand(100000,999999);
             Mail::to($request->email)->send(new OTPMail($otpCode));
-            User::where('email',$request->email)->update(['otp'=>$otpCode]);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'We  sent 6 digit code,please check your email.',
-            ],200);
-
+            $result=User::where('email',$request->email)->update(['otp'=>$otpCode]);
+            $msg='We  sent 6 digit code,please check your email.';
+            return Json::response('success',$msg,$result,200);
         }else{
-            return response()->json([
-                'status' => 'failed',
-                'message' =>"You have entered the email address is not matching in our server.",
-            ],200);
+            $msg="You have entered the email address is not matching in our server.";
+            return Json::response('failed',$msg,'error',200);
         }
      
     }
@@ -110,27 +94,16 @@ class UserRegister extends Controller
             ],200)->cookie('token',$token,60*24*30);
 
         }else{
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Invalid OTP Code',
-            ],200);
+            return Json::response('failed','Invalid OTP Code','error',200);
         }
     }
     public function resetPassword(Request $request){
         try{
             $email=$request->header('email');
-            User::where('email',$email)->update(['password'=>$request->password]);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Password reset Successfully',
-            ],200);
-
+            $result=User::where('email',$email)->update(['password'=>$request->password]);
+            return Json::response('success','Password reset Successfully',$result,200);
         }catch(Exception $e){
-            
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Unauthorized user'
-            ],200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     public function logout(Request $request) {
@@ -144,16 +117,9 @@ class UserRegister extends Controller
         try{
             $email=$request->header('email');
             $result=User::where('email',$email)->first();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Password reset Successfully',
-                'data' => $result,
-            ],200);
+            return Json::response('success','Password reset Successfully',$result,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'Unauthorized user'
-            ],200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     public function updateUserProfile(Request $request){
@@ -164,15 +130,10 @@ class UserRegister extends Controller
            // $obj->password=$request->password;
             $obj->mobile=$request->mobile;
             $obj->save();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User Registration Successfully'
-            ],200);
+            $msg='User Registration Successfully';
+            return Json::response('success',$msg,$obj,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'User Registration Failed ! From Back-End'
-            ],200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
         
    }
