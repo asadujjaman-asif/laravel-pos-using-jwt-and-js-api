@@ -23,11 +23,11 @@ class BrandController extends Controller
      */
     public function getBrand(Request $request){
         $id=$request->header('id');
-        $result=Brand::where("user_id",$id)->get();
-        return Json::response('success',$result,200);
+        $data=Brand::where("user_id",$id)->get();
+        return Json::response('suceess','Brand result',$data,200);
     }
     /**
-     * Show the form for creating a new resource.
+     * Create a new brand
      */
     public function createBrand(Request $request)
     {
@@ -39,17 +39,11 @@ class BrandController extends Controller
             $brand->description = $request->description;
             $brand->slug = Str::slug($request->name)."-".$id;
             $brand->user_id = $id;
-            $brand->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Brand has been created successfully'
-            ], 200);
+            $response=$brand->save();
+            $msg='Brand has been created successfully';
+            return Json::response('suceess',$msg,$response,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                "error" => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     /**
@@ -66,16 +60,10 @@ class BrandController extends Controller
             $brand->slug = Str::slug($request->name)."-".$id;
             $brand->user_id = $id;
             $brand->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Brand has been updated successfully'
-            ], 200);
+            $msg='Brand has been updated successfully';
+            return Json::response('suceess',$msg,$brand,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 
@@ -86,21 +74,16 @@ class BrandController extends Controller
     {
         try {
             $user_id=$request->header('id');
-            Brand::where('user_id',$user_id)->where('id',$request->brand_id)->delete();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Brand has been deleted successfully'
-            ], 200);
+            $brand=Brand::where('user_id',$user_id)->where('id',$request->brand_id)->delete();
+            $msg='Brand has been deleted successfully';
+            return Json::response('success',$msg,$brand,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user'
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     public function brandyById(Request $request){
         $user_id=$request->header('id');
         $result=Brand::where('user_id',$user_id)->where('id',$request->brand_id)->first();
-        return $result;
+        return Json::response('success','success',$result,200);
     }
 }

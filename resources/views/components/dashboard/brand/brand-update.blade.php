@@ -41,7 +41,7 @@
         let url="brand-by-id";
         showPreLoader();
         var result=await axios.post(url,{brand_id:id});
-        console.log(result);
+        result=result.data;
         hidePreLoader();
         getInput('updateBrandName').value=result.data['name'];
         getInput('updateBrandDescription').value=result.data['description'];
@@ -61,7 +61,6 @@
             getInput('up-modal-close').click();
             let URL="/update-brand";
             showPreLoader();
-            showMessage(3000);
             let res = await axios.post(URL,formData);
             hidePreLoader();
             if(res.status == 200 && res.data['status']=='success'){
