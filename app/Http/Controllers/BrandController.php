@@ -24,7 +24,7 @@ class BrandController extends Controller
     public function getBrand(Request $request){
         $id=$request->header('id');
         $data=Brand::where("user_id",$id)->get();
-        return Json::response('suceess','Brand result',$data,200);
+        return Json::response('success','Brand result',$data,200);
     }
     /**
      * Create a new brand
@@ -41,7 +41,7 @@ class BrandController extends Controller
             $brand->user_id = $id;
             $response=$brand->save();
             $msg='Brand has been created successfully';
-            return Json::response('suceess',$msg,$response,200);
+            return Json::response('success',$msg,$response,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
@@ -61,7 +61,7 @@ class BrandController extends Controller
             $brand->user_id = $id;
             $brand->save();
             $msg='Brand has been updated successfully';
-            return Json::response('suceess',$msg,$brand,200);
+            return Json::response('success',$msg,$brand,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }

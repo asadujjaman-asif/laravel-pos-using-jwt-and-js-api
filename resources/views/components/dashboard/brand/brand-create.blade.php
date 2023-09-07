@@ -52,7 +52,7 @@
             showPreLoader();
             let result = await axios.post(URL,formData);
             hidePreLoader();
-            if(result.status == 200 && result.data['status']=='suceess'){
+            if(result.status == 200 && result.data['status']=='success'){
               getInput('message').innerText=result.data['message'];
               showMessage(3000);
               getInput('form').reset();
