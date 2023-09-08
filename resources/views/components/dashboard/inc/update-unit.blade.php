@@ -10,12 +10,14 @@
     <small class="error"></small>
 </div>
 <script type="text/javascript">
+    var unitList=[];
     geUnit();
     async function geUnit(){
         let url="/get-unit";
         try{
             const response = await axios.get(url);
-            response.data.forEach((item, index)=>{
+            unitList=response.data;
+            unitList.data.forEach((item, index)=>{
                 var row = `<option value="${item['id']}">${item['name']}</option>`;
                 $("#upUnit").append(row);
                 $("#upUnit").trigger("chosen:updated");

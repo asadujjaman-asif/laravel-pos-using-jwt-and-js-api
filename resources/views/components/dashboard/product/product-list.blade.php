@@ -31,6 +31,7 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
+    var productLists=[];
     getProduct();
     async function getProduct(){
         let url="/get-product";
@@ -41,8 +42,8 @@
     
             productTable.DataTable().destroy();
             productList.empty();
-            
-            response.data.forEach((item, index)=>{
+            productLists=response.data;
+            productLists.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['productName']}</td>

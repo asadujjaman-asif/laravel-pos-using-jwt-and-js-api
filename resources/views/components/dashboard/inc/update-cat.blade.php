@@ -10,12 +10,14 @@
     <small class="error"></small>
 </div>
 <script type="text/javascript">
+    var categoryList=[];
     getCategory();
     async function getCategory(){
         let url="/get-category";
         try{
             const response = await axios.get(url);
-            response.data.forEach((item, index)=>{
+            var categoryList=response.data;
+            categoryList.data.forEach((item, index)=>{
                 var row = `<option value="${item['id']}">${item['category_name']}</option>`;
                 $("#upCategory").append(row);
                 $("#upCategory").trigger("chosen:updated");

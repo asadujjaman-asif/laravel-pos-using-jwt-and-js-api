@@ -27,18 +27,20 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
+    var categoryLists = [];
     getCategory();
     async function getCategory(){
         let url="/get-category";
         try{
             const response = await axios.get(url);
+            categoryLists=response.data;
             let categoryTable=$("#categoryTable");
             let categoryList=$("#categoryList");
     
             categoryTable.DataTable().destroy();
             categoryList.empty();
             
-            response.data.forEach((item, index)=>{
+            categoryLists.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['category_name']}</td>

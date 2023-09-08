@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
+use App\Helper\Json;
 
 class UnitController extends Controller
 {
@@ -16,7 +17,8 @@ class UnitController extends Controller
     }
     public function getUnit(Request $request){
         $id=$request->header('id');
-        return Unit::where("user_id",$id)->get();
+        $data=Unit::where("user_id",$id)->get();
+        return Json::response('success','Unit result',$data,200);
     }
     /**
      * Show the form for creating a new resource.
@@ -29,16 +31,9 @@ class UnitController extends Controller
             $unit->name = $request->name;
             $unit->user_id = $id;
             $unit->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Unit has been created successfully'
-            ], 200);
+            return Json::response('success','Unit has been created successfully',$unit,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                "error" => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     /**
@@ -52,16 +47,9 @@ class UnitController extends Controller
             $unit->name = $request->name;
             $unit->user_id = $id;
             $unit->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Unit has been updated successfully'
-            ], 200);
+            return Json::response('success','Unit has been updated successfully',$unit,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 
@@ -72,16 +60,10 @@ class UnitController extends Controller
     {
         try {
             $user_id=$request->header('id');
-            Unit::where('user_id',$user_id)->where('id',$request->unit_id)->delete();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Unit has been deleted successfully'
-            ], 200);
+            $obj=Unit::where('user_id',$user_id)->where('id',$request->unit_id)->delete();
+            return Json::response('success','Unit has been deleted successfully',$obj,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user'
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     public function unitById(Request $request){

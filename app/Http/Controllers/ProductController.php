@@ -9,6 +9,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Str;
 use App\Helper\General;
+use App\Helper\Json;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -27,7 +28,8 @@ class ProductController extends Controller
     public function getProduct(Request $request)
     {
         $id=$request->header('id');
-        return Product::where("user_id",$id)->get();
+        $data=Product::where("user_id",$id)->get();
+        return Json::response('success','Product',$data,200);
     }
 
     /**
@@ -54,16 +56,9 @@ class ProductController extends Controller
             $product->SKU = Str::of($request->productName)->upper()->substr(0,3)."-".rand(10000,99999);
             $product->image = General::fileUpload($img,$id);
             $product->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Product has been saved successfully'
-            ], 200);
+            return Json::response('success','Product has been created successfully',$product,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     /**
@@ -103,16 +98,9 @@ class ProductController extends Controller
                 File::delete($request->file_path);
             }
             $product->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Product has been updated successfully'
-            ], 200);
+            return Json::response('success','Product has been updated successfully',$product,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 
@@ -127,17 +115,11 @@ class ProductController extends Controller
         try {
             $user_id=$request->header('id');
             $filePath=$request->file_path;
-            Product::where('user_id',$user_id)->where('id',$request->product_id)->delete();
+            $obj=Product::where('user_id',$user_id)->where('id',$request->product_id)->delete();
             File::delete($filePath);
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Product has been deleted successfully'
-            ], 200);
+            return Json::response('success','Product has been deleted successfully',$obj,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user'
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 }

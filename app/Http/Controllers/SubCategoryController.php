@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateSubCategoryRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Helper\Json;
 
 class SubCategoryController extends Controller
 {
@@ -20,7 +21,8 @@ class SubCategoryController extends Controller
     }
     public function getSubCategory(Request $request){
         $id=$request->header('id');
-        return SubCategory::with('category')->where("user_id",$id)->get();
+        $data=SubCategory::with('category')->where("user_id",$id)->get();
+        return Json::response('success','Sub category List',$data,200);
     }
     /**
      * Show the form for creating a new resource.
@@ -41,12 +43,9 @@ class SubCategoryController extends Controller
                 'status' => 'success',
                 'message' =>'Sub category has been created successfully'
             ], 200);
+            return Json::response('success','Sub category has been created successfully',$subCat,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                "error" => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     /**
@@ -68,12 +67,9 @@ class SubCategoryController extends Controller
                 'status' => 'success',
                 'message' =>'Sub category has been updated successfully'
             ], 200);
+            return Json::response('success','Sub category has been updated successfully',$subCat,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 
@@ -84,16 +80,10 @@ class SubCategoryController extends Controller
     {
         try {
             $user_id=$request->header('id');
-            SubCategory::where('user_id',$user_id)->where('id',$request->subCat_id)->delete();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Sub category has been deleted successfully'
-            ], 200);
+            $obj=SubCategory::where('user_id',$user_id)->where('id',$request->subCat_id)->delete();
+            return Json::response('success','Sub category has been deleted successfully',$obj,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user'
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     public function subCategoryById(Request $request){
