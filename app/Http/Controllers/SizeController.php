@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Size;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreSizeRequest;
 use App\Http\Requests\UpdateSizeRequest;
 use App\Helper\Json;
+use App\Helper\General;
 use Exception;
 
 class SizeController extends Controller
@@ -15,54 +17,59 @@ class SizeController extends Controller
      */
     public function sizeList()
     {
-        return view('pages.dashboard.unit-page');
+        return view('pages.dashboard.size-page');
     }
 
+    public function getSize(Request $request){
+        $id=$request->header('id');
+        $data=Size::where("user_id",$id)->get();
+        return Json::response('success','Size result',$data,200);
+    }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createSize(Request $request)
     {
-        //
+        try {
+            $id=$request->header('id');
+            $size=new Size();
+            $size->name = $request->name;
+            $size->slug =General::crateSlug($request->name);
+            $size->user_id = $id;
+            $size->save();
+            return Json::response('success','size has been created successfully',$size,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSizeRequest $request)
-    {
-        //
+    public function sizeById(Request $request){
+        $user_id=$request->header('id');
+        $result=Size::where('user_id',$user_id)->where('id',$request->size_id)->first();
+        return $result;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Size $size)
+    public function updateSize(Request $request)
     {
-        //
+        try {
+            $id=$request->header('id');
+            $size=Size::findOrFail($request->size_id);
+            $size->name = $request->name;
+            $size->slug =General::crateSlug($request->name);
+            $size->save();
+            return Json::response('success','Size has been updated successfully',$size,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Size $size)
+    public function deleteSize(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSizeRequest $request, Size $size)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Size $size)
-    {
-        //
+        try {
+            $user_id=$request->header('id');
+            $obj=Size::where('user_id',$user_id)->where('id',$request->size_id)->delete();
+            return Json::response('success','Size has been deleted successfully',$obj,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
     }
 }

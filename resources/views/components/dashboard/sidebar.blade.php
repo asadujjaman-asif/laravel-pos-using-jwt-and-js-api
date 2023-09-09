@@ -30,16 +30,19 @@
 					
 					                   
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-1x"></i> Ecommerse Setup<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap fa-1x"></i> Ecommerce Setup<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('slider-list')}}"><i class='fas fa-images fa-1x'></i> Slider Setup</a>
                             </li>
                             <li>
-                                <a href="#">Second Level Link</a>
+                                <a href="{{ route('color-list')}}"><i class='fas fa-paint-brush fa-1x'></i>Color Setup</a>
                             </li>
                             <li>
-                                <a href="#">Ecommerse Setup<span class="fa arrow"></span></a>
+                                <a href="{{ route('size-list')}}"><i class='fas fa-list fa-1x'></i>Size Setup</a>
+                            </li>
+                            <li>
+                                <a href="#">Ecommerce Setup<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
                                         <a href="#">Third Level Link</a>
