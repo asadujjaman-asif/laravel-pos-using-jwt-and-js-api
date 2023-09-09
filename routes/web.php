@@ -3,8 +3,10 @@
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -106,4 +108,22 @@ Route::controller(SliderController::class)->group(function(){
     Route::post('/slider-by-id', 'sliderById')->name('slider-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-slider', 'updateSlider')->name('update-slider')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-slider', 'deleteSlider')->name('delete-slider')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(ColorController::class)->group(function(){
+    //get request
+    Route::get('/color-list', 'colorList')->name('color-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-color', 'getColor')->name('get-color')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-color', 'createColor')->name('create-color')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/color-by-id', 'colorById')->name('color-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-color', 'updateColor')->name('update-color')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-color', 'deleteColor')->name('delete-color')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(SizeController::class)->group(function(){
+    //get request
+    Route::get('/size-list', 'sizeList')->name('size-list')->middleware([TokenVerifyMiddleware::class]);
+    Route::get('/get-size', 'getSize')->name('get-size')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/create-size', 'createSize')->name('create-size')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/size-by-id', 'sizeById')->name('size-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-size', 'updateSize')->name('update-size')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/delete-size', 'deleteSize')->name('delete-size')->middleware([TokenVerifyMiddleware::class]);
 });
