@@ -27,6 +27,7 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
+    var unitLists=[];
     getUnit();
     async function getUnit(){
         let url="/get-unit";
@@ -37,8 +38,8 @@
     
             unitTable.DataTable().destroy();
             unitList.empty();
-            
-            response.data.forEach((item, index)=>{
+            unitLists=response.data;
+            unitLists.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['name']}</td>

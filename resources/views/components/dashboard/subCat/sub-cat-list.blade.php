@@ -29,6 +29,7 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
+    subCatLists=[];
     subCatList();
     async function subCatList(){
         let url="/get-sub-category";
@@ -38,17 +39,20 @@
             let subCatList=$("#subCatList");
             subCatTable.DataTable().destroy();
             subCatList.empty();
-            response.data.forEach((item, index)=>{
-                var row = `<tr class="odd gradeX">
-                    <td>${index+1}</td>
-                    <td>${item.category['category_name']}</td>
-                    <td>${item['name']}</td>
-                    <td>${item['description']}</td>
-                    <td>
-                        <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn">Edit</button>
-                        <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn">Delete</button>
-                    </td>
-                </tr>`
+            subCatLists=response.data;
+            subCatLists.data.forEach((item, index)=>{
+                if(item.category){
+                    var row = `<tr class="odd gradeX">
+                        <td>${index+1}</td>
+                        <td>${item.category['category_name']}</td>
+                        <td>${item['name']}</td>
+                        <td>${item['description']}</td>
+                        <td>
+                            <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn">Edit</button>
+                            <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn">Delete</button>
+                        </td>
+                    </tr>`
+                }
                 subCatList.append(row);
             });
         }catch(error){

@@ -30,6 +30,7 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
+    var sliderLists=[];
     getSlider();
     async function getSlider(){
         let url="/get-slider";
@@ -40,8 +41,8 @@
     
             sliderTable.DataTable().destroy();
             sliderList.empty();
-            
-            response.data.forEach((item, index)=>{
+            sliderLists=response.data;
+            sliderLists.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['title']}</td>

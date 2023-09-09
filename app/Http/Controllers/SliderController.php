@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Str;
 use App\Helper\General;
+use App\Helper\Json;
 use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
@@ -27,7 +28,8 @@ class SliderController extends Controller
     public function getSlider(Request $request)
     {
         $id=$request->header('id');
-        return Slider::where("user_id",$id)->get();
+        $data=Slider::where("user_id",$id)->get();
+        return Json::response('success','Slider result',$data,200);
     }
 
     /**
@@ -46,16 +48,10 @@ class SliderController extends Controller
             $product->user_id = $id;
             $product->image = General::fileUpload($img,$id,'sliders');
             $product->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Slider has been saved successfully'
-            ], 200);
+            $msg='Slider has been created successfully';
+            return Json::response('success',$msg,$product,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
     /**
@@ -87,16 +83,10 @@ class SliderController extends Controller
                 File::delete($request->file_path);
             }
             $slider->save();
-            return response()->json([
-                'status' => 'success',
-                'message' =>'Slider has been updated successfully'
-            ], 200);
+            $msg='Slider has been updated successfully';
+            return Json::response('success',$msg,$slider,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user',
-                'error' => $e->getMessage()
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 
@@ -111,17 +101,15 @@ class SliderController extends Controller
         try {
             $user_id=$request->header('id');
             $filePath=$request->file_path;
-            Slider::where('user_id',$user_id)->where('id',$request->slider_id)->delete();
+            $obj=Slider::where('user_id',$user_id)->where('id',$request->slider_id)->delete();
             File::delete($filePath);
             return response()->json([
                 'status' => 'success',
                 'message' =>'Slider has been deleted successfully'
             ], 200);
+            return Json::response('success','Slider has been deleted successfully',$obj,200);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 'failed',
-                'message' =>'Unauthorized user'
-            ], 200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 }
