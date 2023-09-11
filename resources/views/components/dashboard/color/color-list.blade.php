@@ -3,20 +3,20 @@
         <!-- Advanced Tables -->
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Unit List
+                Color List
                 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal" style="margin-top:-8px">Create</button>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables" id="unitTable">
+                    <table class="table table-striped table-bordered table-hover dataTables" id="colorTable">
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Unit name</th>
+                                <th>Color Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="unitList">
+                        <tbody id="colorList">
                         </tbody>
                     </table>
                 </div>
@@ -27,28 +27,28 @@
 </div>
 <!-- /. ROW  -->
  <script type="text/javascript">
-    var unitLists=[];
-    getUnit();
-    async function getUnit(){
-        let url="/get-unit";
+    var colorLists=[];
+    getColor();
+    async function getColor(){
+        let url="/get-color";
         try{
             const response = await axios.get(url);
-            let unitTable=$("#unitTable");
-            let unitList=$("#unitList");
+            let colorTable=$("#colorTable");
+            let colorList=$("#colorList");
     
-            unitTable.DataTable().destroy();
-            unitList.empty();
-            unitLists=response.data;
-            unitLists.data.forEach((item, index)=>{
+            colorTable.DataTable().destroy();
+            colorList.empty();
+            colorLists=response.data;
+            colorLists.data.forEach((item, index)=>{
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['name']}</td>
                     <td>
-                        <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                        <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn"><i class="fa fa-trash-o"></i> Delete</button>
+                        <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn"><i class="fa fa-trash-o"></i></button>
                     </td>
                 </tr>`
-                unitList.append(row);
+                colorList.append(row);
             });
         }catch(error){
             alert(error);
@@ -63,7 +63,7 @@
             $("#delete-modal").modal("show");
             $("#deleteID").val(id);
         });
-        new DataTable('#unitTable',{
+        new DataTable('#colorTable',{
         order:[[0,'desc']],
         lengthMenu:[5,10,15,20,30]
         });

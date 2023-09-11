@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create new unit</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create new color</h5>
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="margin-top:-20px">&times;</span>
         </button>-->
@@ -11,8 +11,8 @@
       <form id="form">
         <div class="modal-body">
           <div class="form-group input-control">
-            <label for="unitName" class="col-form-label">Unit name</label>
-            <input type="text" class="form-control" id="unitName" placeholder="Unit name" msg="Unit name is required.">
+            <label for="colorName" class="col-form-label">Color name</label>
+            <input type="text" class="form-control" id="colorName" placeholder="Color name" msg="Color name is required.">
             <i class="fa-solid fa-circle-exclamation failure-icon"></i>
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
@@ -28,27 +28,27 @@
 </div>
 <script type="text/javascript">
     const formElement=getInput('form');
-    const unitName=getInput('unitName');
+    const colorName=getInput('colorName');
     formElement.addEventListener('submit',async function(e){
         e.preventDefault();
         let required=isRequired(
-            [unitName]
+            [colorName]
         );
         if(required==true){
             let formData={
-              name:unitName.value
+              name:colorName.value
             }
             getInput('modal-close').click();
-            let URL="/create-unit";
+            let URL="/create-color";
             showPreLoader();
             showMessage(3000);
             let result = await axios.post(URL,formData);
             hidePreLoader();
             if(result.status == 200 && result.data['status']=='success'){
-                getInput('message').innerText=result.data['message'];
+                getInput('message').innerText=result.data['msg'];
                 showMessage(3000);
                 getInput('form').reset();
-                await getUnit();
+                await getColor();
                
             }else{
               getInput('message').innerText="Failed! something went wrong";
