@@ -15,6 +15,7 @@ return new class extends Migration
             Schema::create('sizes', function (Blueprint $table) {
                 $table->id();
                 $table->string('name',50);
+                $table->string('description',250);
                 $table->string('slug')->unique();
                 $table->unsignedBigInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();

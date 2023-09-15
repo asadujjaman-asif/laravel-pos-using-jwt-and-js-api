@@ -34,6 +34,7 @@ class SizeController extends Controller
             $id=$request->header('id');
             $size=new Size();
             $size->name = $request->name;
+            $size->description = $request->description;
             $size->slug =General::crateSlug($request->name);
             $size->user_id = $id;
             $size->save();
