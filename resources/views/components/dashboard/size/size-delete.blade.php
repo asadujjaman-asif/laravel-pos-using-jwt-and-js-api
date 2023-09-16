@@ -21,12 +21,12 @@
         let id=document.getElementById('deleteID').value;
         document.getElementById('modal-close-delete').click();
         showPreLoader();
-        let result=await axios.post("/delete-unit",{unit_id:id})
+        let result=await axios.post("/delete-size",{size_id:id})
         hidePreLoader();
         if(result.status == 200 && result.data['status']=='success'){
-            getInput('message').innerText=result.data['message'];
+            getInput('message').innerText=result.data['msg'];
             showMessage(3000);
-            await getUnit();
+            await getSize();
         }
         else{
             console.log("Request fail!")

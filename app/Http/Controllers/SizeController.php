@@ -56,6 +56,7 @@ class SizeController extends Controller
             $id=$request->header('id');
             $size=Size::findOrFail($request->size_id);
             $size->name = $request->name;
+            $size->description = $request->description;
             $size->slug =General::crateSlug($request->name);
             $size->save();
             return Json::response('success','Size has been updated successfully',$size,200);

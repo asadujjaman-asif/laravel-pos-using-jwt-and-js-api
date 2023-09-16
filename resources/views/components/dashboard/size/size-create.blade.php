@@ -57,7 +57,7 @@
                 getInput('message').innerText=result.data['msg'];
                 showMessage(3000);
                 getInput('form').reset();
-                await getUnit();
+                await getSize();
                
             }else{
               getInput('message').innerText="Failed! something went wrong";

@@ -29,8 +29,8 @@
 <!-- /. ROW  -->
  <script type="text/javascript">
     var sizeLists=[];
-    getUnit();
-    async function getUnit(){
+    getSize();
+    async function getSize(){
         let url="/get-size";
         try{
             const response = await axios.get(url);
