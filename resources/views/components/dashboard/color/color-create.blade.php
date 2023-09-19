@@ -17,6 +17,13 @@
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
+          <div class="form-group input-control">
+            <label for="colorCode" class="col-form-label">Color code</label>
+            <input type="text" class="form-control" id="colorCode" placeholder="Color code" msg="Color code is required.">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal-close">Close</button>
@@ -29,14 +36,16 @@
 <script type="text/javascript">
     const formElement=getInput('form');
     const colorName=getInput('colorName');
+    const colorCode=getInput('colorCode');
     formElement.addEventListener('submit',async function(e){
         e.preventDefault();
         let required=isRequired(
-            [colorName]
+            [colorName,colorCode]
         );
         if(required==true){
             let formData={
-              name:colorName.value
+              name:colorName.value,
+              color_code:colorCode.value
             }
             getInput('modal-close').click();
             let URL="/create-color";

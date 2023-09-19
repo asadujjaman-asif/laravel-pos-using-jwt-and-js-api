@@ -34,6 +34,7 @@ class ColorController extends Controller
             $id=$request->header('id');
             $color=new Color();
             $color->name = $request->name;
+            $color->color_code = $request->color_code;
             $color->slug =General::crateSlug($request->name);
             $color->user_id = $id;
             $color->save();
@@ -55,6 +56,7 @@ class ColorController extends Controller
             $id=$request->header('id');
             $color=Color::findOrFail($request->color_id);
             $color->name = $request->name;
+            $color->color_code = $request->color_code;
             $color->slug =General::crateSlug($request->name);
             $color->save();
             return Json::response('success','Color has been updated successfully',$color,200);

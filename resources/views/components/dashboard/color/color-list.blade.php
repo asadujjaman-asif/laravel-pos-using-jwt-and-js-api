@@ -13,6 +13,7 @@
                             <tr>
                                 <th>SL</th>
                                 <th>Color Name</th>
+                                <th>Color Code</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -43,6 +44,7 @@
                 var row = `<tr class="odd gradeX">
                     <td>${index+1}</td>
                     <td>${item['name']}</td>
+                    <td style="background-color:#${item['color_code']}">&nbsp;</td>
                     <td>
                         <button data-id="${item['id']}"class="btn btn-sm btn-success editBtn"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn"><i class="fa fa-trash-o"></i></button>

@@ -18,6 +18,13 @@
             <i class="fa-regular fa-circle-check success-icon"></i>
             <small class="error"></small>
           </div>
+          <div class="form-group input-control">
+            <label for="upColorCode" class="col-form-label">Color code</label>
+            <input type="text" class="form-control" id="upColorCode" placeholder="Color code" msg="Color code is required.">
+            <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+            <i class="fa-regular fa-circle-check success-icon"></i>
+            <small class="error"></small>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="up-modal-close">Close</button>
@@ -36,10 +43,12 @@
         var result=await axios.post(url,{color_id:id});
         hidePreLoader();
         getInput('updateColor').value=result.data['name'];
+        getInput('upColorCode').value=result.data['color_code'];
     }
     async function update(){
         const updateColor=getInput('updateColor');
         const colorId=getInput('colorId');
+        const upColorCode=getInput('upColorCode');
         let required=isRequired(
             [updateColor]
         );
@@ -47,6 +56,7 @@
             let formData={
               name:updateColor.value,
               color_id:colorId.value,
+              color_code:upColorCode.value,
             }
             getInput('up-modal-close').click();
             let URL="/update-color";
