@@ -17,6 +17,7 @@
                                 <th>Sale Price</th>
                                 <th>Quantity</th>
                                 <th>Image</th>
+                                <th>Details Setup</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -51,6 +52,12 @@
                     <td>${item['salePrice']}</td>
                     <td>${item['qty']}</td>
                     <td><img src="${item['image']}" style="width: 50%;"/></td>
+                    <td>
+                        <button  data-id="${item['id']}"class="btn btn-sm btn-primary editBtn">MultiImg</button>
+                        <button  data-id="${item['id']}" class="btn btn-sm btn-info deleteBtn">Color & Sz</button>
+                        <button  data-id="${item['id']}" class="btn btn-sm btn-default deleteBtn">Discount</button>
+                        <button  data-id="${item['id']}" class="btn btn-sm btn-success deleteBtn">Regular</button>
+                    </td>
                     <td>
                         <button data-path="${item['image']}" data-id="${item['id']}"class="btn btn-sm btn-success editBtn"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button data-path="${item['image']}" data-id="${item['id']}" class="btn btn-sm btn-danger deleteBtn"><i class="fa fa-trash-o"></i></button>
