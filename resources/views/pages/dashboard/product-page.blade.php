@@ -10,6 +10,7 @@ Product List
         @include('components.dashboard.product.product-create')
         @include('components.dashboard.product.product-delete')
         @include('components.dashboard.product.product-update')
+        @include('components.dashboard.product.create-multi-image')
         <!-- /. ROW  -->           
     </div>
         <!-- /. PAGE INNER  -->

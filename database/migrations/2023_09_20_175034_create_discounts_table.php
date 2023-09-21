@@ -11,10 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discounts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+       if(!Schema::hasTable('discounts')){
+            Schema::create('discounts', function (Blueprint $table) {
+                $table->id();
+                $table->date('startDate')->format('d/m/Y');
+                $table->date('endDate')->format('d/m/Y');
+                $table->string('discount',10);
+                $table->unsignedBigInteger('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+                $table->unsignedBigInteger('product_id');
+                $table->foreign('product_id')->references('id')->on('products')->cascadeOnUpdate()->cascadeOnDelete();
+                $table->timestamp('created_at')->useCurrent();
+                $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            });
+       }
     }
 
     /**

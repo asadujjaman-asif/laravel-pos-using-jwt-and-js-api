@@ -53,10 +53,10 @@
                     <td>${item['qty']}</td>
                     <td><img src="${item['image']}" style="width: 50%;"/></td>
                     <td>
-                        <button  data-id="${item['id']}"class="btn btn-sm btn-primary editBtn">MultiImg</button>
-                        <button  data-id="${item['id']}" class="btn btn-sm btn-info deleteBtn">Color & Sz</button>
-                        <button  data-id="${item['id']}" class="btn btn-sm btn-default deleteBtn">Discount</button>
-                        <button  data-id="${item['id']}" class="btn btn-sm btn-success deleteBtn">Regular</button>
+                        <button  data-id="${item['id']}"class="btn btn-sm btn-primary multiImg">MultiImg</button>
+                        <button  data-id="${item['id']}" class="btn btn-sm btn-info colorSize">Color & Sz</button>
+                        <button  data-id="${item['id']}" class="btn btn-sm btn-default Discount">Discount</button>
+                        <button  data-id="${item['id']}" class="btn btn-sm btn-success Regular">Regular</button>
                     </td>
                     <td>
                         <button data-path="${item['image']}" data-id="${item['id']}"class="btn btn-sm btn-success editBtn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -80,6 +80,13 @@
             $("#delete-modal").modal("show");
             $("#deleteID").val(id);
             $("#filePath").val(path);
+        });
+        //MultiImage
+        $(".multiImg").on('click',async function() {
+            let id = $(this).data('id');
+            let path = $(this).data('path');
+            await fillUpInputField(id,path);
+            $("#multiImg-modal").modal("show");
         });
         new DataTable('#productTable',{
         order:[[0,'desc']],
