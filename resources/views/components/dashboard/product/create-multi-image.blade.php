@@ -10,10 +10,36 @@
       </div>
       <form id="up-form">
         <div class="modal-body">
-            <div>
-                <div class="form-group input-control" for="upProductImage" >
-                    <img id="oldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 25%;"/>
-                    <input type="file" id="upProductImage" oninput="oldImg.src=window.URL.createObjectURL(this.files[0])">
+            <div style="width: 100%; display:flex">
+                <div class="form-group input-control" for="imageOne" style="width: 48%;">
+                    <img id="imageOneOldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 100%;height:200px"/>
+                    <input type="file" id="imageOne" oninput="imageOneOldImg.src=window.URL.createObjectURL(this.files[0])">
+                    <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+                    <i class="fa-regular fa-circle-check success-icon"></i>
+                    <small id="img-error" class="error"></small>
+                    <input type="hidden" class="d-none" id="filePath">
+                </div>
+                <div class="form-group input-control" for="imageTwo" style="width: 48%;margin-left:4%">
+                    <img id="imageTwoOldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 100%;height:200px"/>
+                    <input type="file" id="imageTwo" oninput="imageTwoOldImg.src=window.URL.createObjectURL(this.files[0])">
+                    <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+                    <i class="fa-regular fa-circle-check success-icon"></i>
+                    <small id="img-error" class="error"></small>
+                    <input type="hidden" class="d-none" id="filePath">
+                </div>
+            </div>
+            <div style="width: 100%; display:flex">
+                <div class="form-group input-control" for="imageThree" style="width: 48%;">
+                    <img id="imageThreeOldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 100%;height:200px"/>
+                    <input type="file" id="imageThree" oninput="imageThreeOldImg.src=window.URL.createObjectURL(this.files[0])">
+                    <i class="fa-solid fa-circle-exclamation failure-icon"></i>
+                    <i class="fa-regular fa-circle-check success-icon"></i>
+                    <small id="img-error" class="error"></small>
+                    <input type="hidden" class="d-none" id="filePath">
+                </div>
+                <div class="form-group input-control" for="imageFour" style="width: 48%;margin-left:4%">
+                    <img id="imageFourOldImg" src="{{asset('assets/backend/img/demo-image.jpg')}}" style="width: 100%;height:200px"/>
+                    <input type="file" id="imageFour" oninput="imageFourOldImg.src=window.URL.createObjectURL(this.files[0])">
                     <i class="fa-solid fa-circle-exclamation failure-icon"></i>
                     <i class="fa-regular fa-circle-check success-icon"></i>
                     <small id="img-error" class="error"></small>
