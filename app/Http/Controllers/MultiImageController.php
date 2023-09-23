@@ -35,24 +35,25 @@ class MultiImageController extends Controller
                 $mulImage=MultiImage::findOrFail($images->id);
                 if($request->hasFile('imageOne')){
                     $imageOne=$request->file('imageOne');
-                    $mulImage->image = General::fileUpload($imageOne,$id);
+                    $mulImage->imageOne = General::fileUpload($imageOne,$id,'multiImages');
                     File::delete($request->filePathOne);
                 }
                 if($request->hasFile('imageTwo')){
                     $imageTwo=$request->file('imageTwo');
-                    $mulImage->image = General::fileUpload($imageTwo,$id);
+                    $mulImage->imageTwo = General::fileUpload($imageTwo,$id,'multiImages');
                     File::delete($request->filePathTwo);
                 }
                 if($request->hasFile('imageThree')){
                     $imageThree=$request->file('imageThree');
-                    $mulImage->image = General::fileUpload($imageThree,$id);
+                    $mulImage->imageThree = General::fileUpload($imageThree,$id,'multiImages');
                     File::delete($request->filePathThree);
                 }
                 if($request->hasFile('imageFour')){
                     $imageFour=$request->file('imageFour');
-                    $mulImage->image = General::fileUpload($imageFour,$id);
+                    $mulImage->imageFour = General::fileUpload($imageFour,$id,'multiImages');
                     File::delete($request->filePathFour);
                 }
+                $mulImage->save();
             }else{
                 $multiImage=new MultiImage();
 
@@ -70,7 +71,7 @@ class MultiImageController extends Controller
                 $multiImage->save();
 
             }
-            return Json::response('success','Product has been created successfully','',200);
+            return Json::response('success','Product multi image has been uploaded successfully','',200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }

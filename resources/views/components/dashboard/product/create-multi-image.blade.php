@@ -59,12 +59,22 @@
 <script type="text/javascript">
   async function fillUpInputField(id,path){
       getInput('productId').value=id;
-      getInput('oldImg').src=path;
-      getInput('filePath').value=path;
       let url="product-image-by-id";
       showPreLoader();
       var result=await axios.post(url,{product_id:id});
-      console.log(result);
+      let results=result.data.data;
+      console.log(results);
+      getInput('imageOneOldImg').src=results.imageOne;
+      getInput('filePathOne').value=results.imageOne;
+      
+      getInput('imageTwoOldImg').src=results.imageTwo;
+      getInput('filePathTwo').value=results.imageTwo;
+
+      getInput('imageThreeOldImg').src=results.imageThree;
+      getInput('filePathThree').value=results.imageThree;
+
+      getInput('imageFourOldImg').src=results.imageFour;
+      getInput('filePathFour').value=results.imageFour;
       hidePreLoader();
   }
     async function updateProductMultiImage(){
