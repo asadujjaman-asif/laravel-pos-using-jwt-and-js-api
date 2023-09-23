@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MultiImageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SliderController;
@@ -126,4 +127,9 @@ Route::controller(SizeController::class)->group(function(){
     Route::post('/size-by-id', 'sizeById')->name('size-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-size', 'updateSize')->name('update-size')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/delete-size', 'deleteSize')->name('delete-size')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(MultiImageController::class)->group(function(){
+    //get request
+    Route::post('/product-image-by-id', 'productImageById')->name('product-image-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-product-multi-image', 'updateProductMultiImage')->name('update-product-multi-image')->middleware([TokenVerifyMiddleware::class]);
 });

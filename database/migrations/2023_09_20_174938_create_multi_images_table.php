@@ -14,10 +14,10 @@ return new class extends Migration
         if(!Schema::hasTable('multi_images')){
             Schema::create('multi_images', function (Blueprint $table) {
                 $table->id();
-                $table->string('imageOne',50);
-                $table->string('imageTwo',50);
-                $table->string('imageThree',50);
-                $table->string('imageFour',50);
+                $table->string('imageOne',250);
+                $table->string('imageTwo',250);
+                $table->string('imageThree',250);
+                $table->string('imageFour',250);
                 $table->unsignedBigInteger('user_id');
                 $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->unsignedBigInteger('product_id');
