@@ -12,6 +12,7 @@ Product List
         @include('components.dashboard.product.product-update')
         @include('components.dashboard.product.create-multi-image')
         @include('components.dashboard.product.create-product-discount')
+        @include('components.dashboard.product.create-size-and-color')
         <!-- /. ROW  -->           
     </div>
         <!-- /. PAGE INNER  -->

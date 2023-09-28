@@ -52,7 +52,7 @@
       <!-- CUSTOM SCRIPTS -->
     <script src="{{asset('assets/backend/js/custom.js')}}"></script>
     <script src="{{asset('assets/backend/js/chosen.jquery.js')}}"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="{{asset('assets/backend/js/moment.min.js')}}"></script>
     <script src="{{asset('assets/backend/js/daterangepicker.min.js')}}"></script>
 
     <script type="text/javascript">

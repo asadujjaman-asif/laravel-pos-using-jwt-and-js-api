@@ -93,6 +93,11 @@
             await fillUpInputField(id);
             $("#discount-modal").modal("show");
         });
+        $(".colorSize").on('click',async function() {
+            let id = $(this).data('id');
+            await fillUpInputField(id);
+            $("#colorSize-modal").modal("show");
+        });
         new DataTable('#productTable',{
         order:[[0,'desc']],
         lengthMenu:[5,10,15,20,30]
