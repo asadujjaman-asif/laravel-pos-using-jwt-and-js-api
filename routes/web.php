@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\MultiImageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
@@ -132,4 +133,9 @@ Route::controller(MultiImageController::class)->group(function(){
     //get request
     Route::post('/product-image-by-id', 'productImageById')->name('product-image-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-product-multi-image', 'updateProductMultiImage')->name('update-product-multi-image')->middleware([TokenVerifyMiddleware::class]);
+});
+Route::controller(DiscountController::class)->group(function(){
+    //get request
+    Route::post('/product-discount-by-id', 'productDiscountById')->name('product-discount-by-id')->middleware([TokenVerifyMiddleware::class]);
+    Route::post('/update-product-discount', 'updateProductDiscount')->name('update-product-discount')->middleware([TokenVerifyMiddleware::class]);
 });

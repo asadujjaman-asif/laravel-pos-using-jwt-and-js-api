@@ -11,6 +11,7 @@ Product List
         @include('components.dashboard.product.product-delete')
         @include('components.dashboard.product.product-update')
         @include('components.dashboard.product.create-multi-image')
+        @include('components.dashboard.product.create-product-discount')
         <!-- /. ROW  -->           
     </div>
         <!-- /. PAGE INNER  -->

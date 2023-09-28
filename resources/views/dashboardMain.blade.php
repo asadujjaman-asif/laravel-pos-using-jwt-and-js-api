@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('assets/backend/css/validate.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/message.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/chosen.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/backend/css/daterangepicker.css')}}">
      <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="{{asset('assets/backend/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />
@@ -24,6 +25,7 @@
     <script src="{{asset('assets/backend/js/jquery-1.10.2.js')}}"></script>
     <script src="{{asset('assets/backend/js/dataTables/jquery.dataTables.js')}}"></script>
     <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
+    
     
 <body>
     
@@ -50,6 +52,9 @@
       <!-- CUSTOM SCRIPTS -->
     <script src="{{asset('assets/backend/js/custom.js')}}"></script>
     <script src="{{asset('assets/backend/js/chosen.jquery.js')}}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="{{asset('assets/backend/js/daterangepicker.min.js')}}"></script>
+
     <script type="text/javascript">
       $(".chosen-select").chosen({
           no_results_text: "Oops, nothing found!",
@@ -59,6 +64,19 @@
       );
       $(".chosen-single").css("height", "40px");
       $(".chosen-single").css("line-height", "40px");
+  </script>
+  <script>
+  $(function() {
+    $('.date').daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      minYear: 2000,
+      maxYear: parseInt(moment().format('YYYY'),10),
+      locale: {
+      format: 'DD-MM-YYYY',
+    }
+    });
+  });
   </script>
 </body>
 </html>
