@@ -12,7 +12,7 @@
         <div class="modal-body">
             <div class="form-group input-control">
                 <label for="colorList" class="col-form-label ">Product Color</label>
-                <select id="colorList" class="form-control  chosen-select" msg="Product name is required.">
+                <select id="colorList" class="form-control  chosen-select" change="chooseColor">
                     <option value="">Select a one</option>
                 </select>
                 <br>
@@ -20,16 +20,18 @@
                 <i class="fa-regular fa-circle-check success-icon"></i>
                 <small class="error"></small>
             </div>
-            <div id="sizeAndColor">
-                <div style="border: 1px solid lightgray;width: 100%; display:flex">
-                    <div class="form-group input-control" for="imageThree" style="width:30%;">
-                        sasas
-                    </div>
-                    <div class="form-group input-control" for="imageFour" style="width: 66%;margin-left:4%;border-left: 1px solid lightgray">
-                    aaa
-                    </div>
-                </div>
-            </div>
+            <table class="table  table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Color</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody id="sizeAndColor">
+                
+              </tbody>
+            </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="up-discount-modal-close">Close</button>
@@ -42,19 +44,39 @@
 <script type="text/javascript">
     getColor();
     async function getColor(){
-        let url="/get-color";
-        try{
-            const response = await axios.get(url);
-            colorLists=response.data;
-            colorLists.data.forEach((item, index)=>{
-                var row = `<option data-id="${item['id']}" value="${item['id']}">${item['name']}</option>`;
-                $("#colorList").append(row);
-                $("#colorList").trigger("chosen:updated");
-            });
-        }catch(error){
-            alert(error);
-        }
-    }
+      let url="/get-color";
+      try{
+          const response = await axios.get(url);
+          colorLists=response.data;
+          colorLists.data.forEach((item, index)=>{
+              var row = `<option data-name="${item['name']}" value="${item['id']}">${item['name']}</option>`;
+              $("#colorList").append(row);
+              $("#colorList").trigger("chosen:updated");
+          });
+      }catch(error){
+          alert(error);
+      }
+  }
+  var index=0;
+  $("#colorList").change(function(){
+
+    let color=$(this).val();
+    let colorName=$(this).children(":selected").text();
+    let colorList=$("#sizeAndColor");
+    var row = `<tr id="remove_${index}">
+      <td>${colorName}</td>
+      <td>Otto</td>
+      <td>
+        <button type="button" onclick="removeItem(${index})" class="btn btn-sm btn-danger">Del</button>
+      </td>
+    </tr>
+    `;
+    colorList.append(row);
+    index=index+1;
+  });
+  function removeItem(id){
+    getInput(`remove_${id}`).remove();
+  }
   async function fillUpInputField(id){
       getInput('productId').value=id;
       let url="product-discount-by-id";
