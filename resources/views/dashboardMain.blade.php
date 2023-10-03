@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('assets/backend/css/message.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/chosen.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/daterangepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/backend/css/checkbox.css')}}">
      <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link href="{{asset('assets/backend/js/dataTables/dataTables.bootstrap.css')}}" rel="stylesheet" />

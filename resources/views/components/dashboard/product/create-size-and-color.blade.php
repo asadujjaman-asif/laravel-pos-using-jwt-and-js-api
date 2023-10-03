@@ -63,14 +63,85 @@
     let color=$(this).val();
     let colorName=$(this).children(":selected").text();
     let colorList=$("#sizeAndColor");
-    var row = `<tr id="remove_${index}">
-      <td>${colorName}</td>
-      <td>Otto</td>
-      <td>
-        <button type="button" onclick="removeItem(${index})" class="btn btn-sm btn-danger">Del</button>
-      </td>
-    </tr>
-    `;
+    let exists=$(`#colorId_${color}`);
+    if(exists.length){
+      alert("Color has already been selected");
+    }else{
+      var row = `<tr id="remove_${index}">
+        <td>
+        ${colorName}
+        <input type="hidden" id="colorId_${color}" value="${color}">
+        </td>
+        <td>
+        <ul class="ks-cboxtags">
+    <li>
+    	<input type="checkbox" id="checkboxOne" value="Rainbow Dash">
+    	<label for="checkboxOne">HTML</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxTwo" value="Cotton Candy" checked>
+    	<label for="checkboxTwo">CSS</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxThree" value="Rarity" checked>
+    	<label for="checkboxThree">JAVASCRIPT</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxFour" value="Moondancer">
+    	<label for="checkboxFour">AJAX</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxFive" value="Surprise">
+    	<label for="checkboxFive">JSON</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked>
+    	<label for="checkboxSix">REACT</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxSeven" value="Fluttershy">
+    	<label for="checkboxSeven">RIOT</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxEight" value="Derpy Hooves">
+    	<label for="checkboxEight">VUE</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxNine" value="Princess Celestia">
+    	<label for="checkboxNine">ANGULAR</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxTen" value="Gusty">
+    	<label for="checkboxTen">NODE JS</label>
+    </li>
+    <li class="ks-selected">
+    	<input type="checkbox" id="checkboxEleven" value="Discord">
+    	<label for="checkboxEleven">REACT NATIVE</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxTwelve" value="Clover">
+    	<label for="checkboxTwelve">RIOT</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxThirteen" value="Baby Moondancer">
+    	<label for="checkboxThirteen">JQUERY</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxFourteen" value="Medley">
+    	<label for="checkboxFourteen">TYPE SCRIPT</label>
+    </li>
+    <li>
+    	<input type="checkbox" id="checkboxFifteen" value="Firefly">
+    	<label for="checkboxFifteen">GITHUB</label>
+    </li>
+  </ul>
+        </td>
+        <td>
+          <button type="button" onclick="removeItem(${index})" class="btn btn-sm btn-danger">Del</button>
+        </td>
+      </tr>
+      `;
+    }
     colorList.append(row);
     index=index+1;
   });
