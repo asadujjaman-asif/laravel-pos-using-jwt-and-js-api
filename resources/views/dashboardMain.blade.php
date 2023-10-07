@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>POS | @yield('title')</title>
 	<!-- BOOTSTRAP STYLES-->
-    <link href="{{asset('assets/backend/css/bootstrap.css')}}" rel="stylesheet" />
+  @notifyCss
+     <link href="{{asset('assets/backend/css/bootstrap.css')}}" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
     <link href="{{asset('assets/backend/css/font-awesome.css')}}" rel="stylesheet" />
      <!-- MORRIS CHART STYLES-->
@@ -26,6 +27,7 @@
     <script src="{{asset('assets/backend/js/jquery-1.10.2.js')}}"></script>
     <script src="{{asset('assets/backend/js/dataTables/jquery.dataTables.js')}}"></script>
     <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
+    
     
     
 <body>
@@ -79,5 +81,7 @@
     });
   });
   </script>
+  <x-notify::notify />
+  @notifyJs
 </body>
 </html>
