@@ -20,54 +20,34 @@ class EcCustomerController extends Controller
     public function customerLogin(Request $request)
     {
         try {
-            $otpCode=rand(100000,999999);
-            $template='OTPCode';
-            Mail::to($request->email)->send(new OTPMail($otpCode,$template));
+            $ec_user_id=$request->headers('user_id');
+            $request->merge(['ec_user_id'=>$ec_user_id]);
             $result=EcCustomer::updateOrCreate(
-                ['customer_email'=>$request->email],
-                ['customer_email'=>$request->email,'otp'=>$otpCode]
+                ['ec_user_id'=>$ec_user_id],
+                $request->input()
             );    
-            $msg='We  sent 6 digit code,please check your email.';
+            $msg='User profile created successfully.';
             return Json::response('success',$msg,$result,200);
-
         }catch(Exception $e){
-            $msg="You have entered the email address is not matching in our server.";
-            return Json::response('failed',$msg,'error',200);
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * read Customer profile.
      */
-    public function verifyLogin(Request $request)
+    public function readCustomerProfile(Request $request)
     {
         try{
-            $verifyOTP=EcCustomer::where('customer_email',$request->email)->where('otp',$request->otp)->first();
-            if($verifyOTP){
-               $customer= EcCustomer::findOrFail($verifyOTP->id);
-               $customer->otp=0;
-               $customer->save();
-               $validityTime=60*20;
-               $token=JWTToken::createTocken($request->email,$verifyOTP->id,$validityTime);
-               $msg='OTP verify Successfully';
-               return Json::response('success',$msg,$token,200)->cookie('token',$token,60*24*30);
+            $ec_user_id=$request->headers('user_id');
+            $user=EcCustomer::where('ec_user_id',$ec_user_id)->first();
+            if($user){
+               return Json::response('success',$user,$user,200);
             }else{
                 $msg="You have entered an invalid OTP Or Email.";
                 return Json::response('failed',$msg,'error',200);
             }
         }catch(Exception $e) {
-            return Json::response('failed','Something Went wrong',$e->getMessage(),200);
-        }
-    }
-
-    /**
-     * Log out.
-     */
-    public function logOut(Request $request)
-    {
-        try{
-            return redirect('/')->cookie('token','',-1);
-        }catch(Exception $e){
             return Json::response('failed','Something Went wrong',$e->getMessage(),200);
         }
     }
