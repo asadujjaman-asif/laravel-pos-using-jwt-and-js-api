@@ -18,11 +18,11 @@ class ProductReviewController extends Controller
     {
         try{
             $ec_user_id=$request->headers('user_id');
-            $customer=ProductReview::where('ec_user_id',$ec_user_id)->first();
+            $customer=ProductReview::where('customer_id',$ec_user_id)->first();
             $request->merge(['customer_id'=>$ec_user_id]);
             if($customer){
                 $result=ProductReview::updateOrCreate(
-                    ['ec_user_id'=>$ec_user_id,'product_id'=>$request->product_id],
+                    ['customer_id'=>$ec_user_id,'product_id'=>$request->product_id],
                     $request->input()
                 );    
                 $msg='Product review created successfully.';
