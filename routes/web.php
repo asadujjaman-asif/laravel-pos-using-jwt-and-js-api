@@ -139,3 +139,5 @@ Route::controller(DiscountController::class)->group(function(){
     Route::post('/product-discount-by-id', 'productDiscountById')->name('product-discount-by-id')->middleware([TokenVerifyMiddleware::class]);
     Route::post('/update-product-discount', 'updateProductDiscount')->name('update-product-discount')->middleware([TokenVerifyMiddleware::class]);
 });
+
+///  Stare here frontend part

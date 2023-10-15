@@ -13,13 +13,15 @@ class OTPMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $otp;
+    public $template;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($otp)
+    public function __construct($otp, $template='OTPCode')
     {
         $this->otp=$otp;
+        $this->template=$template;
     }
 
     /**
@@ -38,7 +40,7 @@ class OTPMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.OTPCode',
+            view: 'emails.'.$this->template,
         );
     }
 

@@ -70,7 +70,8 @@ class UserRegister extends Controller
                 ->count();
         if($user==1) {
             $otpCode=rand(100000,999999);
-            Mail::to($request->email)->send(new OTPMail($otpCode));
+            $template='OTPCode';
+            Mail::to($request->email)->send(new OTPMail($otpCode,$template));
             $result=User::where('email',$request->email)->update(['otp'=>$otpCode]);
             $msg='We  sent 6 digit code,please check your email.';
             return Json::response('success',$msg,$result,200);
@@ -86,7 +87,7 @@ class UserRegister extends Controller
         if($user==1) {
             $validityTime=60*20;
             User::where('email',$request->email)->update(['otp'=>0]);
-            $token=JWTToken::createTocken($request->email,$validityTime);
+            $token=JWTToken::createTocken($request->email,$user->id,$validityTime);
             return response()->json([
                 'status' => 'success',
                 'message' => 'OTP verify Successfully',

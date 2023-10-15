@@ -41,6 +41,7 @@ class BrandController extends Controller
             $brand->user_id = $id;
             $response=$brand->save();
             $msg='Brand has been created successfully';
+            notify()->success('Laravel Notify is awesome!');
             return Json::response('success',$msg,$response,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);

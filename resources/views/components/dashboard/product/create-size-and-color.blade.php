@@ -43,6 +43,25 @@
 </div>
 <script type="text/javascript">
     getColor();
+    getSize();
+    var count=0;
+    var sizeListsmMain=""
+    async function getSize() {
+      let url="/get-size";
+      const response = await axios.get(url);
+      let sizeList="";
+      sizeLists=response.data;
+      
+      sizeLists.data.forEach((item, index)=>{
+      var size=`<li>
+          <input type="checkbox" class="checkboxOne_${count}" id="checkboxOne_${count}" value="${item['id']}">
+          <label id="label_${count}" for="checkboxOne_${count}">${item['name']}</label>
+        </li>`;
+        sizeList+=size;
+        count=count+1;
+      });
+      sizeListsmMain=sizeList;
+    }
     async function getColor(){
       let url="/get-color";
       try{
@@ -58,83 +77,25 @@
       }
   }
   var index=0;
-  $("#colorList").change(function(){
-
+  $("#colorList").change(async function(){
+    
     let color=$(this).val();
     let colorName=$(this).children(":selected").text();
     let colorList=$("#sizeAndColor");
     let exists=$(`#colorId_${color}`);
+
     if(exists.length){
       alert("Color has already been selected");
     }else{
-      var row = `<tr id="remove_${index}">
+     var row = `<tr id="remove_${index}">
         <td>
         ${colorName}
         <input type="hidden" id="colorId_${color}" value="${color}">
         </td>
         <td>
-        <ul class="ks-cboxtags">
-    <li>
-    	<input type="checkbox" id="checkboxOne" value="Rainbow Dash">
-    	<label for="checkboxOne">HTML</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxTwo" value="Cotton Candy" checked>
-    	<label for="checkboxTwo">CSS</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxThree" value="Rarity" checked>
-    	<label for="checkboxThree">JAVASCRIPT</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxFour" value="Moondancer">
-    	<label for="checkboxFour">AJAX</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxFive" value="Surprise">
-    	<label for="checkboxFive">JSON</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxSix" value="Twilight Sparkle" checked>
-    	<label for="checkboxSix">REACT</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxSeven" value="Fluttershy">
-    	<label for="checkboxSeven">RIOT</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxEight" value="Derpy Hooves">
-    	<label for="checkboxEight">VUE</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxNine" value="Princess Celestia">
-    	<label for="checkboxNine">ANGULAR</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxTen" value="Gusty">
-    	<label for="checkboxTen">NODE JS</label>
-    </li>
-    <li class="ks-selected">
-    	<input type="checkbox" id="checkboxEleven" value="Discord">
-    	<label for="checkboxEleven">REACT NATIVE</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxTwelve" value="Clover">
-    	<label for="checkboxTwelve">RIOT</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxThirteen" value="Baby Moondancer">
-    	<label for="checkboxThirteen">JQUERY</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxFourteen" value="Medley">
-    	<label for="checkboxFourteen">TYPE SCRIPT</label>
-    </li>
-    <li>
-    	<input type="checkbox" id="checkboxFifteen" value="Firefly">
-    	<label for="checkboxFifteen">GITHUB</label>
-    </li>
-  </ul>
+          <ul class="ks-cboxtags sizeList" id="size_list_${index}">
+          ${sizeListsmMain}
+          </ul>
         </td>
         <td>
           <button type="button" onclick="removeItem(${index})" class="btn btn-sm btn-danger">Del</button>
@@ -143,6 +104,13 @@
       `;
     }
     colorList.append(row);
+    var f="checkboxOne_"+index;
+    var is="checkboxOne_"+index;
+    var items=$(`#size_list_${index}`).children().length;
+    for (var i=0; i<items; i++){
+        $(`#label_${i}`).attr('for',f);
+        $(`.checkboxOne_${i}`).attr('id',is);
+    }
     index=index+1;
   });
   function removeItem(id){
