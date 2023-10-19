@@ -20,8 +20,10 @@ return new class extends Migration
                 $table->foreign('product_id')->references('id')->on('products')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->string('qty',3);
                 $table->string('unit_price',8);
-                $table->string('color',100);
-                $table->string('size',1);
+                $table->unsignedBigInteger('color_id');
+                $table->foreign('color_id')->references('id')->on('colors')->cascadeOnUpdate()->cascadeOnDelete();
+                $table->unsignedBigInteger('size_id');
+                $table->foreign('size_id')->references('id')->on('sizes')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->timestamp('created_at')->useCurrent();
                 $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             });

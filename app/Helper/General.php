@@ -15,4 +15,10 @@ class General{
         $t=time();
         return Str::slug($item)."-".$t;
     }
+    public static function createVoucher($max){
+        $initial=$max+1;
+        $voucherNumber=str_pad($initial, 6, '0', STR_PAD_LEFT);
+        $voucher="NEL-{$voucherNumber}";
+        return $voucher;
+    }
 }

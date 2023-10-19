@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\CartDetail;
 use App\Http\Requests\StoreCartDetailRequest;
 use App\Http\Requests\UpdateCartDetailRequest;
+use Illuminate\Http\Request;
+use App\Helper\General;
 
 class CartDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getList()
     {
         //
     }
@@ -19,9 +21,19 @@ class CartDetailController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createCart(Request $request)
     {
-        //
+        $cartDetail=new CartDetail();
+        $max=CartDetail::max('id');
+        $cartDetail->invoice = General::createVoucher($max);
+        $cartDetail->total_price = General::calculateTotalPrice($request->product_id);
+        $cartDetail->payment_status = General::calculateTotalPrice($request->product_id);
+        $cartDetail->status = 0;
+        $cartDetail->order_date = 0;
+        $cartDetail->delivery_date = null;
+        $cartDetail->store_id = $request->store_id;
+        $cartDetail->customer_id = $request->customer_id;
+        $cartDetail->save();
     }
 
     /**
