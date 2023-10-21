@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CartDetail extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    public function cart(){
+        return $this->hasOne(Cart::class,'order_id');
+    }
 }

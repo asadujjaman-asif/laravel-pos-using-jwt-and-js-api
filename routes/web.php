@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
@@ -141,3 +142,7 @@ Route::controller(DiscountController::class)->group(function(){
 });
 
 ///  Stare here frontend part
+Route::controller(CartDetailController::class)->group(function(){
+    //get request
+    Route::get('/details-of-product', 'discountById')->name('details-of-product');
+});

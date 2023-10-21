@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    use HasFactory;
+   // use HasFactory;
+   public function cartDetail(){
+        return $this->belongsTo(CartDetail::class);
+   }
 }
