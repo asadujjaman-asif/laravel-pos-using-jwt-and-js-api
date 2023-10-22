@@ -22,8 +22,6 @@ return new class extends Migration
                 $table->string('delivery_date',10);
                 $table->unsignedBigInteger('store_id');
                 $table->foreign('store_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
-                $table->unsignedBigInteger('product_id');
-                $table->foreign('product_id')->references('id')->on('products')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->unsignedBigInteger('customer_id');
                 $table->foreign('customer_id')->references('id')->on('ec_customers')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->timestamp('created_at')->useCurrent();
