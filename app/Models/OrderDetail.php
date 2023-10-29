@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderDetail extends Model
 {
-    use HasFactory;
+    //use HasFactory;
+    public function order(){
+        return $this->hasOne(Order::class,'order_id');
+    }
 }

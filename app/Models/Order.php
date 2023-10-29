@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
+   // use HasFactory;
+    public function orderDetail(){
+        return $this->belongsTo(OrderDetail::class);
+    }   
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\MultiImageController;
+use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SliderController;
@@ -143,6 +144,10 @@ Route::controller(DiscountController::class)->group(function(){
 
 ///  Stare here frontend part
 Route::controller(CartDetailController::class)->group(function(){
+    //get request
+    Route::post('/add-to-cart', 'createCart')->name('add-to-cart');
+});
+Route::controller(OrderDetailController::class)->group(function(){
     //get request
     Route::get('/details-of-product', 'discountById')->name('details-of-product');
 });

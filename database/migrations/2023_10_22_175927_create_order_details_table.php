@@ -18,7 +18,7 @@ return new class extends Migration
                 $table->string('vat',50);
                 $table->string('total_price',50);
                 $table->string('payable',50);
-                $table->enum('delivery_status',['Order=0','Pending=1','Processing=2','Completed=3']);
+                $table->enum('delivery_status',['Cancel=0','Order=1','Pending=2','Processing=3','Completed=4']);
                 $table->string('payment_status',1);
                 $table->string('tran_id',100);
                 $table->string('val_id',100)->default(0);
