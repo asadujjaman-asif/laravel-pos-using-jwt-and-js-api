@@ -6,9 +6,9 @@ use App\Models\Product;
 use App\Models\CartDetail;
 use App\Models\OrderDetail;
 use App\Models\Cart;
-
-$vat=30;
+use App\Models\OurCompany;
 class General{
+
     public static function fileUpload($file,$user_id,$folder='uploads'){
         $t=time();
         $file_name=$file->getClientOriginalName();
@@ -52,5 +52,9 @@ class General{
             'unitPrice' => $product->salePrice,
             'totalPrice' => $product->salePrice*$qty,
         ];
+    }
+    public static function calculateVatPrice($totalAmount,$companyId){
+       $company=OurCompany::where('company_id',$companyId)->first();
+       return  ($totalAmount*$company->vat)/100;
     }
 }
