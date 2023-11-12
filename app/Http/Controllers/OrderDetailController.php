@@ -6,6 +6,7 @@ use App\Models\EcCustomer;
 use App\Models\EcCustomerShipping;
 use App\Models\OrderDetail;
 use App\Models\Order;
+use App\Models\Cart;
 use App\Http\Requests\StoreOrderDetailRequest;
 use App\Http\Requests\UpdateOrderDetailRequest;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use App\Helper\General;
 use App\Helper\Json;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use App\Helper\SSLCommerz;
 
 class OrderDetailController extends Controller
 {
@@ -37,8 +40,10 @@ class OrderDetailController extends Controller
      */
     public function createOrder(Request $request)
     {
+        DB::beginTransaction();
         try {
             $user_id=$request->header('user_id');
+            $user_email=$request->header('user_email');
             $orderDetail=new OrderDetail();
             $max=OrderDetail::max('id');
             $storeId=$request->store_id;
@@ -56,6 +61,10 @@ class OrderDetailController extends Controller
             }
 
             $totalAmount=0;
+            $cartList=Cart::where('customer_id','=',$user_id)->get();
+            foreach ($cartList as $cartItem) {
+                $totalAmount=$totalAmount+$cartItem->unit_price;
+            }
             $vat=General::calculateVatPrice($totalAmount,$storeId);
             $payable=$totalAmount+$vat;
             $qty=General::calculateTotalPrice($request->product_id,$storeId,$request->qty);
@@ -77,57 +86,49 @@ class OrderDetailController extends Controller
             $orderDetail->save();
 
             $order=new Order(); 
-            $order->order_id=$orderDetail->id;
-            $order->product_id=$request->product_id;
-            $order->qty=$request->qty;
-            $order->unit_price=$qty['unitPrice'];
-            $order->color_id=$request->color_id;
-            $order->size_id=$request->size_id;
-            $order->save();
-
-            return Json::response('success','Product has been added to your cart.',$cart,200);
+            foreach ($cartList as $EachProduct) {
+                $order->order_id=$orderDetail->id;
+                $order->product_id=$request->product_id;
+                $order->qty=$request->qty;
+                $order->unit_price=$qty['unitPrice'];
+                $order->color_id=$request->color_id;
+                $order->size_id=$request->size_id;
+                $order->save();
+            }
+            $paymentMethod=SSLCommerz::InitiatePayment($ecCustomer,$ecCustomerShipping,$payable,$tran_id,$user_email);
+            DB::commit();
+            return Json::response('success','Product has been added to your cart.',array(['paymentMethod'=>$paymentMethod,'payable'=>$payable,'vat'=>$vat,'total'=>$totalAmount]),200);
         }catch(Exception $e){
+            DB::rollBack();
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreOrderDetailRequest $request)
-    {
-        //
+    function orderList(Request $request){
+        $user_id=$request->header('id');
+        return OrderDetail::where('user_id',$user_id)->get();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(OrderDetail $orderDetail)
-    {
-        //
+    function orderDetails(Request $request){
+        $user_id=$request->header('id');
+        $invoice_id=$request->invoice_id;
+        return Order::where(['user_id'=>$user_id,'invoice_id'=>$invoice_id])->with('product')->get();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(OrderDetail $orderDetail)
-    {
-        //
+
+    function PaymentSuccess(Request $request){
+        return SSLCommerz::InitiateSuccess($request->query('tran_id'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOrderDetailRequest $request, OrderDetail $orderDetail)
-    {
-        //
+
+    function PaymentCancel(Request $request){
+        return SSLCommerz::InitiateCancel($request->query('tran_id'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(OrderDetail $orderDetail)
-    {
-        //
+    function PaymentFail(Request $request){
+        return SSLCommerz::InitiateFail($request->query('tran_id'));
+    }
+
+    function PaymentIPN(Request $request){
+        return SSLCommerz::InitiateIPN($request->input('tran_id'),$request->input('status'),$request->input('val_id'));
     }
 }
