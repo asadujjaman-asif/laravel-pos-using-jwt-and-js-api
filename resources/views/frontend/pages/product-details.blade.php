@@ -1,6 +1,6 @@
 @extends('frontend.home')
 @section('title')
-Home
+Product details
 @endsection
 @section('content')
         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
@@ -35,7 +35,7 @@ Home
                                     <div class="product-gallery">
                                         <figure class="product-main-image">
                                             <span class="product-label label-top">Top</span>
-                                            <img id="product-zoom" src="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/1.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/1-big.jpg" alt="product image">
+                                            <img id="product-zoom" src="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/1.jpg" data-zoom-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/1-big.jpg" alt="product image">
 
                                             <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                                 <i class="icon-arrows"></i>
@@ -43,19 +43,19 @@ Home
                                         </figure><!-- End .product-main-image -->
 
                                         <div id="product-zoom-gallery" class="product-image-gallery">
-                                            <a class="product-gallery-item active" href="#" data-image="assets/images/products/single/sidebar-gallery/1.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/1-big.jpg">
+                                            <a class="product-gallery-item active" href="#" data-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/1-big.jpg" data-zoom-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/1-big.jpg">
                                                 <img src="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/1-small.jpg" alt="product side">
                                             </a>
 
-                                            <a class="product-gallery-item" href="#" data-image="assets/images/products/single/sidebar-gallery/2.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/2-big.jpg">
+                                            <a class="product-gallery-item" href="#" data-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/2-big.jpg" data-zoom-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/2-big.jpg">
                                                 <img src="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/2-small.jpg" alt="product cross">
                                             </a>
 
-                                            <a class="product-gallery-item" href="#" data-image="assets/images/products/single/sidebar-gallery/3.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/3-big.jpg">
+                                            <a class="product-gallery-item" href="#" data-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/3-big.jpg" data-zoom-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/3-big.jpg">
                                                 <img src="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/3-small.jpg" alt="product with model">
                                             </a>
 
-                                            <a class="product-gallery-item" href="#" data-image="assets/images/products/single/sidebar-gallery/4.jpg" data-zoom-image="assets/images/products/single/sidebar-gallery/4-big.jpg">
+                                            <a class="product-gallery-item" href="#" data-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/4-big.jpg" data-zoom-image="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/4-big.jpg">
                                                 <img src="{{asset('assets/frontend/')}}/assets/images/products/single/sidebar-gallery/4-small.jpg" alt="product back">
                                             </a>
                                         </div><!-- End .product-image-gallery -->

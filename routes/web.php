@@ -36,7 +36,8 @@ Route::get('/', function () {
 Route::controller(HomeController::class)->group(function(){
     //get request
     Route::get('/', 'home');
-    Route::get('/product-detail', 'productDetails')->name('product-details');
+    Route::get('/product-detail', 'productDetails')->name('product-detail');
+    Route::get('/category', 'category')->name('category');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request

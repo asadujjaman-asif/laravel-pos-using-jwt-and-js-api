@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/style.css">
     <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/skins/skin-demo-4.css">
     <link rel="stylesheet" href="{{asset('assets/frontend/assets/css/demos/demo-4.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/plugins/nouislider/nouislider.css">
 </head>
 
 <body>
@@ -56,12 +57,15 @@
     <script src="{{asset('assets/frontend/')}}/assets/js/superfish.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/owl.carousel.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/bootstrap-input-spinner.js"></script>
+    <script src="{{asset('assets/frontend/')}}/assets/js/jquery.elevateZoom.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/jquery.plugin.min.js"></script>
+    <script src="{{asset('assets/frontend/')}}/assets/js/wNumb.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/jquery.magnific-popup.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/jquery.countdown.min.js"></script>
     <!-- Main JS File -->
     <script src="{{asset('assets/frontend/')}}/assets/js/main.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/demos/demo-4.js"></script>
+    <script src="{{asset('assets/frontend/')}}/assets/js/nouislider.min.js"></script>
 </body>
 
 

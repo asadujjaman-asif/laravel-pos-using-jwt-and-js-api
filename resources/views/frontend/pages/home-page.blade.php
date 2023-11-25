@@ -2527,7 +2527,7 @@ Home
                     <div class="product-cat">
                         <a href="#">Smart Home</a>
                     </div><!-- End .product-cat -->
-                    <h3 class="product-title"><a href="product.html">Google - Home Hub with  Google Assistant</a></h3><!-- End .product-title -->
+                    <h3 class="product-title"><a href="{{url('product-detail')}}">Google - Home Hub with  Google Assistant</a></h3><!-- End .product-title -->
                     <div class="product-price">
                         $149.00
                     </div><!-- End .product-price -->

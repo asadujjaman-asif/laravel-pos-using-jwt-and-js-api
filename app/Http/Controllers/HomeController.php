@@ -12,4 +12,7 @@ class HomeController extends Controller
     public function productDetails(){
         return view('frontend.pages.product-details');
     }
+    public function category(){
+        return view('frontend.pages.category-page');
+    }
 }
