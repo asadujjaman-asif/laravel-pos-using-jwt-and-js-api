@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MultiImageController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ProductController;
@@ -28,9 +29,14 @@ use App\Models\SubCategory;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/*
 Route::get('/', function () {
     return view('welcome');
+});*/
+Route::controller(HomeController::class)->group(function(){
+    //get request
+    Route::get('/', 'home');
+    Route::get('/product-detail', 'productDetails')->name('product-details');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request
