@@ -38,6 +38,10 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/', 'home');
     Route::get('/product-detail', 'productDetails')->name('product-detail');
     Route::get('/category', 'category')->name('category');
+    Route::get('/cart-list', 'cartList')->name('cart-list');
+    Route::get('/checkout', 'checkOut')->name('checkout');
+    Route::get('/wishlist', 'wishlist')->name('wishlist');
+    Route::get('/customer-login', 'customerLogin')->name('customer-login');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request
