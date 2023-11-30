@@ -43,9 +43,10 @@
             showPreLoader();
             showMessage(3000);
             let result = await axios.post(URL,formData);
+            console.log(result);
             hidePreLoader();
             if(result.status == 200 && result.data['status']=='success'){
-                getInput('message').innerText=result.data['message'];
+                getInput('message').innerText=result.data['msg'];
                 showMessage(3000);
                 getInput('form').reset();
                 await getCategory();
