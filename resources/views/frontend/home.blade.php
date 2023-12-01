@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/skins/skin-demo-4.css">
     <link rel="stylesheet" href="{{asset('assets/frontend/assets/css/demos/demo-4.css')}}">
     <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/plugins/nouislider/nouislider.css">
+    <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
 </head>
 
 <body>

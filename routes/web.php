@@ -42,6 +42,7 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/checkout', 'checkOut')->name('checkout');
     Route::get('/wishlist', 'wishlist')->name('wishlist');
     Route::get('/customer-login', 'customerLogin')->name('customer-login');
+    Route::get('/item-category', 'itemCategory')->name('item-category');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request

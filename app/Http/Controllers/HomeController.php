@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Exception;
+use App\Helper\Json;
 
 class HomeController extends Controller
 {
@@ -26,5 +29,13 @@ class HomeController extends Controller
     }
     public function customerLogin(){
         return view('frontend.pages.login');
+    }
+    public function itemCategory(){
+        try {
+            $category=Category::with('sub_categories')->get();
+            return Json::response('success','Category has been created successfully',$category,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
     }
 }
