@@ -34,15 +34,18 @@ Route::get('/', function () {
     return view('welcome');
 });*/
 Route::controller(HomeController::class)->group(function(){
-    //get request
+    //load page routes
     Route::get('/', 'home');
     Route::get('/product-detail', 'productDetails')->name('product-detail');
-    Route::get('/category', 'category')->name('category');
+    Route::get('/category/{id}', 'category')->name('category');
     Route::get('/cart-list', 'cartList')->name('cart-list');
     Route::get('/checkout', 'checkOut')->name('checkout');
     Route::get('/wishlist', 'wishlist')->name('wishlist');
     Route::get('/customer-login', 'customerLogin')->name('customer-login');
+    Route::get('/about', 'about')->name('about');
+    //get Data routes
     Route::get('/item-category', 'itemCategory')->name('item-category');
+    Route::get('/get-brand-list', 'itemBrand')->name('get-brand-list');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request

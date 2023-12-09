@@ -20,7 +20,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>-->
+                        </li>
                         <li>
                             <div class="header-dropdown">
                                 <a href="#">English</a>
@@ -30,9 +30,9 @@
                                         <li><a href="#">French</a></li>
                                         <li><a href="#">Spanish</a></li>
                                     </ul>
-                                </div><!-- End .header-menu -->
+                                </div><!-- End .header-menu --
                             </div>
-                        </li>
+                        </li>-->
                         <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
                     </ul>
                 </li>

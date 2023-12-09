@@ -1,17 +1,5 @@
 <nav class="main-nav">
     <ul class="menu sf-arrows" id="menu-list">
-        
-        <li>
-            <a href="elements-list.html" class="sf-with-ul">N.Ghuri</a>
-
-            <ul>
-                <li><a href="elements-products.html">About Us</a></li>
-                <li><a href="elements-typography.html">Contact Us</a></li>
-                <li><a href="elements-titles.html">Blog</a></li>
-                <li><a href="elements-banners.html">Comming Soon</a></li>
-                <li><a href="elements-product-category.html">Payment Method</a></li>
-            </ul>
-        </li>
     </ul><!-- End .menu -->
 </nav><!-- End .main-nav -->
 <script type="text/javascript">
@@ -53,8 +41,8 @@
         </li>`);
         item.sub_categories.forEach((sub_cat,i2)=>{
             let sub_menu=document.getElementById(`sub-cat-${i}`);
-            console.log(sub_cat);
-            sub_menu.innerHTML+=(`<li><a href="product.html">${sub_cat['name']}</a></li>`);
+            let url=sub_cat['slug'];
+            sub_menu.innerHTML+=(`<li><a href="{{url('/category/${url}')}}">${sub_cat['name']}</a></li>`);
         });
         
             });

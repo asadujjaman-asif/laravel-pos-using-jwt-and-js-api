@@ -41,10 +41,9 @@
 	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
 	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
+	            					<li><a href="{{url('about')}}">About Us</a></li>
                                     <li><a href="#">Our Services</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="faq.html">FAQ</a></li>
+	            					<li><a href="#">Our Partner</a></li>
 	            					<li><a href="contact.html">Contact us</a></li>
 	            				</ul><!-- End .widget-list -->
 	            			</div><!-- End .widget -->
@@ -84,7 +83,7 @@
 
 	        <div class="footer-bottom">
 	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<p class="footer-copyright">Copyright © 2013 <b><a href="http://neelghuri.com/">Neel Ghuri</a></b>. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
 	        			<img src="{{asset('assets/frontend/')}}/assets/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
