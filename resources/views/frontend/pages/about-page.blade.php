@@ -126,7 +126,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-1.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -145,7 +145,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-2.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -164,7 +164,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-3.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -183,7 +183,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-4.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -202,7 +202,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-5.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -221,7 +221,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-6.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -232,7 +232,7 @@ About
                             </figcaption><!-- End .member-overlay -->
                         </figure><!-- End .member-media -->
                         <div class="member-content">
-                            <h3 class="member-title">Lenard Smith<span>Product Manager</span></h3><!-- End .member-title -->
+                            <h3 class="member-title">Atiar Rahman<span>Sales</span></h3><!-- End .member-title -->
                         </div><!-- End .member-content -->
                     </div><!-- End .member -->
                 </div><!-- End .col-lg-3 -->
@@ -240,7 +240,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-7.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -259,7 +259,7 @@ About
                 <div class="col-sm-6 col-lg-3">
                     <div class="member member-2 text-center">
                         <figure class="member-media">
-                            <img src="{{asset('assets/frontend/')}}/assets/images/team/about-2/member-8.jpg" alt="member photo">
+                            <img src="{{asset('uploads/men-image.jpg')}}" alt="member photo">
 
                             <figcaption class="member-overlay">
                                 <div class="social-icons social-icons-simple">
@@ -270,18 +270,18 @@ About
                             </figcaption><!-- End .member-overlay -->
                         </figure><!-- End .member-media -->
                         <div class="member-content">
-                            <h3 class="member-title">David Doe<span>Product Manager</span></h3><!-- End .member-title -->
+                            <h3 class="member-title">Bappy Hossain<span>Product Manager</span></h3><!-- End .member-title -->
                         </div><!-- End .member-content -->
                     </div><!-- End .member -->
                 </div><!-- End .col-lg-3 -->
             </div><!-- End .row -->
 
-            <div class="text-center mt-3">
+            <!--<div class="text-center mt-3">
                 <a href="blog.html" class="btn btn-sm btn-minwidth-lg btn-outline-primary-2">
                     <span>LETS START WORK</span>
                     <i class="icon-long-arrow-right"></i>
                 </a>
-            </div><!-- End .text-center -->
+            </div>--><!-- End .text-center -->
         </div><!-- End .container -->
     </div><!-- End .bg-light-2 pt-6 pb-6 -->
 

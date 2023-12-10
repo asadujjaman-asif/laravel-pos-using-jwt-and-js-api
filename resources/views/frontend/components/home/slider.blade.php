@@ -1,5 +1,5 @@
 <div class="intro-slider-container mb-5">
-    <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
+    <div id="slider-list" class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" 
         data-owl-options='{
             "dots": true,
             "nav": false, 
@@ -10,18 +10,34 @@
                 }
             }
         }'>
-        <div class="intro-slide" style="background-image: url({{asset('assets/frontend/')}}/assets/images/demos/demo-4/slider/slide-1.png);">
+    </div><!-- End .intro-slider owl-carousel owl-simple -->
+
+    <span class="slider-loader"></span><!-- End .slider-loader -->
+</div><!-- End .intro-slider-container -->
+<script type="text/javascript">
+      getSlider();
+      async function getSlider(){
+        let url="/get-slider-list";
+        try{
+            const response = await axios.get(url);
+            const sliderList=response.data;
+        
+            sliderList.data.forEach((item,i)=>{
+                let slider=document.getElementById('slider-list');
+                let img=item['image'];
+                let textColor=(i%2==0)?"text-third":"text-primary";
+                slider.innerHTML+=(`<div class="intro-slide" style="background-image: url({{asset('/${img}')}});">
             <div class="container intro-content">
                 <div class="row justify-content-end">
                     <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                        <h3 class="intro-subtitle text-third">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
-                        <h1 class="intro-title">Beats by</h1>
-                        <h1 class="intro-title">Dre Studio 3</h1><!-- End .intro-title -->
+                        <h3 class="intro-subtitle ${textColor}">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                        <h3 class="intro-title" title="${item.product['productName']}">${item.product['productName'].slice(0,10)} ...</h3>
+                        <h1 class="intro-title" title="${item['description']}">${item['description'].slice(0,13)}..</h1><!-- End .intro-title -->
 
                         <div class="intro-price">
-                            <sup class="intro-old-price">$349,95</sup>
-                            <span class="text-third">
-                                $279<sup>.99</sup>
+                            <sup class="intro-old-price">BDT ${item['price']}</sup>
+                            <span class="${textColor}">
+                            BDT ${item['price']-100}<sup>.00</sup>
                             </span>
                         </div><!-- End .intro-price -->
 
@@ -32,31 +48,11 @@
                     </div><!-- End .col-lg-11 offset-lg-1 -->
                 </div><!-- End .row -->
             </div><!-- End .intro-content -->
-        </div><!-- End .intro-slide -->
-
-        <div class="intro-slide" style="background-image: url({{asset('assets/frontend/')}}/assets/images/demos/demo-4/slider/slide-2.png);">
-            <div class="container intro-content">
-                <div class="row justify-content-end">
-                    <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                        <h3 class="intro-subtitle text-primary">New Arrival</h3><!-- End .h3 intro-subtitle -->
-                        <h1 class="intro-title">Apple iPad Pro <br>12.9 Inch, 64GB </h1><!-- End .intro-title -->
-
-                        <div class="intro-price">
-                            <sup>Today:</sup>
-                            <span class="text-primary">
-                                $999<sup>.99</sup>
-                            </span>
-                        </div><!-- End .intro-price -->
-
-                        <a href="category.html" class="btn btn-primary btn-round">
-                            <span>Shop More</span>
-                            <i class="icon-long-arrow-right"></i>
-                        </a>
-                    </div><!-- End .col-md-6 offset-md-6 -->
-                </div><!-- End .row -->
-            </div><!-- End .intro-content -->
-        </div><!-- End .intro-slide -->
-    </div><!-- End .intro-slider owl-carousel owl-simple -->
-
-    <span class="slider-loader"></span><!-- End .slider-loader -->
-</div><!-- End .intro-slider-container -->
+        </div>`);
+        
+            });
+        }catch(error){
+          alert(error);
+        }
+      }
+    </script>

@@ -46,6 +46,7 @@ Route::controller(HomeController::class)->group(function(){
     //get Data routes
     Route::get('/item-category', 'itemCategory')->name('item-category');
     Route::get('/get-brand-list', 'itemBrand')->name('get-brand-list');
+    Route::get('/get-slider-list', 'getSlider')->name('get-slider-list');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request

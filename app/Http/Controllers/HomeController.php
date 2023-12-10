@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Slider;
 use Exception;
 use App\Helper\Json;
 
@@ -46,6 +47,14 @@ class HomeController extends Controller
         try {
             $brandList=Brand::all();
             return Json::response('success','Brand List',$brandList,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
+    }
+    public function getSlider(Request $request){
+        try {
+            $sliderList=Slider::with('product')->latest('id')->get();
+            return Json::response('success','Slider List',$sliderList,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
