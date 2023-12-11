@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Slider;
+use App\Models\SubCategory;
 use Exception;
 use App\Helper\Json;
 
@@ -55,6 +56,22 @@ class HomeController extends Controller
         try {
             $sliderList=Slider::with('product')->latest('id')->get();
             return Json::response('success','Slider List',$sliderList,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
+    }
+    public function getPopularCategory(){
+        try {
+            $subCat=SubCategory::where('status',1)->latest('id')->limit(6)->get();
+            return Json::response('success','Popular Category',$subCat,200);
+        }catch(Exception $e){
+            return Json::response('failed','Unauthorized user',$e->getMessage(),200);
+        }
+    }
+    public function getNewArrival(){
+        try {
+            $subCat=SubCategory::where('status',2)->latest('id')->limit(6)->get();
+            return Json::response('success','New Arrival',$subCat,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }

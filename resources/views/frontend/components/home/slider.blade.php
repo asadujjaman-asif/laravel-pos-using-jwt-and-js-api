@@ -30,7 +30,7 @@
             <div class="container intro-content">
                 <div class="row justify-content-end">
                     <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                        <h3 class="intro-subtitle ${textColor}">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
+                        <h3 class="intro-subtitle ${textColor}">${item['title']}</h3><!-- End .h3 intro-subtitle -->
                         <h3 class="intro-title" title="${item.product['productName']}">${item.product['productName'].slice(0,10)} ...</h3>
                         <h1 class="intro-title" title="${item['description']}">${item['description'].slice(0,13)}..</h1><!-- End .intro-title -->
 

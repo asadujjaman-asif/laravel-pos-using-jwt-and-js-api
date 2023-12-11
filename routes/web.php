@@ -47,6 +47,8 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/item-category', 'itemCategory')->name('item-category');
     Route::get('/get-brand-list', 'itemBrand')->name('get-brand-list');
     Route::get('/get-slider-list', 'getSlider')->name('get-slider-list');
+    Route::get('/get-popular-category', 'getPopularCategory')->name('get-popular-category');
+    Route::get('/get-new-arrival', 'getNewArrival')->name('get-new-arrival');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request
