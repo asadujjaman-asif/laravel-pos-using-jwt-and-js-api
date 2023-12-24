@@ -36,7 +36,7 @@ Route::get('/', function () {
 Route::controller(HomeController::class)->group(function(){
     //load page routes
     Route::get('/', 'home');
-    Route::get('/product-detail', 'productDetails')->name('product-detail');
+    Route::get('/product-detail/{id}', 'productDetails')->name('product-detail');
     Route::get('/category/{id}', 'category')->name('category');
     Route::get('/cart-list', 'cartList')->name('cart-list');
     Route::get('/checkout', 'checkOut')->name('checkout');

@@ -9,13 +9,15 @@ use App\Models\Slider;
 use App\Models\SubCategory;
 use Exception;
 use App\Helper\Json;
+use App\Models\ColorWiseSize;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
     public function home(){
         return view('frontend.pages.home-page');
     }
-    public function productDetails(){
+    public function productDetails($slug){
         return view('frontend.pages.product-details');
     }
     public function category(){
@@ -70,8 +72,13 @@ class HomeController extends Controller
     }
     public function getNewArrival(){
         try {
-            $subCat=SubCategory::where('status',2)->latest('id')->limit(6)->get();
-            return Json::response('success','New Arrival',$subCat,200);
+            $result=SubCategory::with('product')->where('status',2)->latest('id')->limit(6)->get();
+            foreach($result as $key => $val){
+                foreach($val->product as $key2=> $val2){
+                    $val->product[$key2]['colors']=ColorWiseSize::with('color')->where('product_id',$val2->id)->get(); 
+                }
+            }
+           return Json::response('success','New Arrival',$result,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }

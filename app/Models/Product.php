@@ -12,4 +12,7 @@ class Product extends Model
     public function slider(){
         return $this->hashOne(Slider::class);
     }
+    public function sub_categories(){
+        return $this->belongsTo(SubCategory::class,'sub_category_id','id');
+    }
 }

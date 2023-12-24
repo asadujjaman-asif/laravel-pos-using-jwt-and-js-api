@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ColorWiseSize extends Model
 {
     use HasFactory;
+    public function color(){
+        return $this->hasOne(Color::class,'id','color_id');
+    }
 }
