@@ -11,6 +11,7 @@ use Exception;
 use App\Helper\Json;
 use App\Models\ColorWiseSize;
 use App\Models\Product;
+use App\Models\ProductReview;
 
 class HomeController extends Controller
 {
@@ -73,9 +74,15 @@ class HomeController extends Controller
     public function getNewArrival(){
         try {
             $result=SubCategory::with('product')->where('status',2)->latest('id')->limit(6)->get();
+            $allItems=[];
             foreach($result as $key => $val){
                 foreach($val->product as $key2=> $val2){
-                    $val->product[$key2]['colors']=ColorWiseSize::with('color')->where('product_id',$val2->id)->get(); 
+                    if($key2==0){
+                        $result[$key]['new_items']=$val2;
+                    }
+                    $val->product[$key2]['colors']=ColorWiseSize::with('color')->where('product_id',$val2->id)->get();
+                    $val->product[$key2]['ratings']=ProductReview::where('product_id',$val2->id)->avg('rating'); 
+                    $val->product[$key2]['votes']=ProductReview::where('product_id',$val2->id)->count('customer_id'); ; 
                 }
             }
            return Json::response('success','New Arrival',$result,200);
