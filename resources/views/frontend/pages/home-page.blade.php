@@ -20,4 +20,5 @@ Home
 @include('frontend.components.home.recommendate-product')
 @include('frontend.components.home.shipping-info')
 
+
 @endsection
