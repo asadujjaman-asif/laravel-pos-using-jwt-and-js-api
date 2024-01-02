@@ -22,17 +22,23 @@ class EcUserController extends Controller
         try {
             $otpCode=rand(100000,999999);
             $template='OTPCode';
-            Mail::to($request->email)->send(new OTPMail($otpCode,$template));
-            $result=EcUser::updateOrCreate(
-                ['email'=>$request->email],
-                ['email'=>$request->email,'otp'=>$otpCode]
-            );    
+            //Mail::to($request->email)->send(new OTPMail($otpCode,$template));
+            $emailResult=EcUser::where('email',$request->email)->first();
+            if($emailResult) {
+                EcUser::where('email',$emailResult->email)->update([
+                    'otp'=>$otpCode
+                ]);
+            }else{
+                $ecUser=new EcUser();
+                $ecUser->email=$request->email;
+                $ecUser->otp=$otpCode;
+                $ecUser->save();
+            }; 
             $msg='We  sent 6 digit code,please check your email.';
-            return Json::response('success',$msg,$result,200);
-
+            return Json::response('success',$msg,$otpCode,200);
         }catch(Exception $e){
             $msg="You have entered the email address is not matching in our server.";
-            return Json::response('failed',$msg,'error',200);
+            return Json::response('failed',$e->getMessage(),'error',200);
         }
     }
 
@@ -42,7 +48,7 @@ class EcUserController extends Controller
     public function verifyLogin(Request $request)
     {
         try{
-            $verifyOTP=EcUser::where('email',$request->email)->where('otp',$request->otp)->first();
+            $verifyOTP=EcUser::where('otp',$request->otp)->first();
             if($verifyOTP){
                $customer= EcUser::findOrFail($verifyOTP->id);
                $customer->otp=0;

@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EcUser extends Model
 {
+    protected $fillable = ['email','otp'];
     use HasFactory;
 }

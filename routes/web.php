@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\EcUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MultiImageController;
 use App\Http\Controllers\OrderDetailController;
@@ -49,6 +50,11 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/get-slider-list', 'getSlider')->name('get-slider-list');
     Route::get('/get-popular-category', 'getPopularCategory')->name('get-popular-category');
     Route::get('/get-new-arrival', 'getNewArrival')->name('get-new-arrival');
+    //Start here user is logged in
+});
+Route::controller(EcUserController::class)->group(function(){
+    Route::post('/set-new-email', 'customerLogin')->name('set-new-email');
+    Route::post('/verify-customer-otp"', 'verifyLogin')->name('verify-customer-otp"');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request

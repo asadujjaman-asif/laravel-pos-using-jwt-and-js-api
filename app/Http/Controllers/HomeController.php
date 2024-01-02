@@ -12,10 +12,13 @@ use App\Helper\Json;
 use App\Models\ColorWiseSize;
 use App\Models\Product;
 use App\Models\ProductReview;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
     public function home(){
+        notify()->success(__('Role has been changed.'));
+       // return redirect("/checkout");
         return view('frontend.pages.home-page');
     }
     public function productDetails($slug){

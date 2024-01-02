@@ -24,6 +24,7 @@
             let productLs=document.getElementById("menu-product-list");
             
             results.data.forEach((item,i)=>{
+                console.log(item);
                 let menuLink=document.getElementById('menu-link');
                 var active="";
                 var menuActive="";

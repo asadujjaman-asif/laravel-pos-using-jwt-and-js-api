@@ -32,7 +32,10 @@
     <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/skins/skin-demo-4.css">
     <link rel="stylesheet" href="{{asset('assets/frontend/assets/css/demos/demo-4.css')}}">
     <link rel="stylesheet" href="{{asset('assets/frontend/')}}/assets/css/plugins/nouislider/nouislider.css">
+    @notifyCss
     <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
+    <script src="{{asset('assets/frontend/')}}/assets/js/jquery.min.js"></script>
+    <script src="{{asset('assets/frontend/')}}/assets/js/bootstrap.bundle.min.js"></script>
     
 </head>
 
@@ -53,8 +56,8 @@
     @include('frontend.components.home.news_later')
     @include('frontend.components.home.verify-otp')
     <!-- Plugins JS File -->
-    <script src="{{asset('assets/frontend/')}}/assets/js/jquery.min.js"></script>
-    <script src="{{asset('assets/frontend/')}}/assets/js/bootstrap.bundle.min.js"></script>
+    
+    
     <script src="{{asset('assets/frontend/')}}/assets/js/jquery.hoverIntent.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/jquery.waypoints.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/superfish.min.js"></script>
@@ -69,9 +72,9 @@
     <script src="{{asset('assets/frontend/')}}/assets/js/main.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/demos/demo-4.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/nouislider.min.js"></script>
-    <script type="text/javascript">
-    $("#otp-modal").modal("toggle");
-    </script> 
+    <x-notify::notify />
+        @notifyJs
+   
 </body>
 
 
