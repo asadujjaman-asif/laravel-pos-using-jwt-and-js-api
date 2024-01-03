@@ -36,6 +36,9 @@
     <script src="{{asset('assets/backend/js/axios.min.js')}}"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/jquery.min.js"></script>
     <script src="{{asset('assets/frontend/')}}/assets/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src= 
+"https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"> 
+    </script>
     
 </head>
 

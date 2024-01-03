@@ -123,6 +123,9 @@
 
 
     <script type="text/javascript">
+        //return false;
+        var sites = "{!! Cookie::get('user_token') !!}";
+        alert(sites);
         const formElementEmail=document.getElementById('form');
         formElementEmail.addEventListener('submit',async function(e){
             e.preventDefault();
@@ -146,8 +149,8 @@
                     email:email
                 }
                let response=await axios.post(url,formData);
-                console.log(response);
                if(response.status == 200 && response.data['status']=='success'){
+                    sessionStorage.setItem('email',email);
                     $("#modal-close").click();
                     $("#otp-modal").modal("toggle");
                 }else{

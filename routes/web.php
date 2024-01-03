@@ -54,7 +54,7 @@ Route::controller(HomeController::class)->group(function(){
 });
 Route::controller(EcUserController::class)->group(function(){
     Route::post('/set-new-email', 'customerLogin')->name('set-new-email');
-    Route::post('/verify-customer-otp"', 'verifyLogin')->name('verify-customer-otp"');
+    Route::post('/verify-customer-otp', 'verifyLogin')->name('verify-customer-otp"');
 });
 Route::controller(UserRegister::class)->group(function(){
     //get request

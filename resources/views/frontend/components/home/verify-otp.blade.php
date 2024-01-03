@@ -26,7 +26,7 @@
                                         <div class="form-group">
                                             <label for="register-email">Your email address *</label>
                                             <input type="email" class="form-control" id="otp-email" name="register-email" required>
-                                            <span class="sign_error" id="email_message"></span>
+                                            <span class="sign_error" id="email_ee_message"></span>
                                         </div><!-- End .form-group -->
                                         <div class="form-group">
                                             <label for="singin-email">OTP Code*</label>
@@ -56,6 +56,12 @@
                 let url="/verify-customer-otp";
                 let otp=document.getElementById("otp-code").value;
                 let email=document.getElementById("otp-email").value;
+                if(email==""){
+                    document.getElementById("email_ee_message").innerHTML="Email address required";
+                    return false;
+                }else{
+                    document.getElementById("email_ee_message").style.display="none";
+                }
                 if(otp==""){
                     document.getElementById("otp_message").innerHTML="Email address required";
                     return false;
@@ -64,13 +70,15 @@
                 }
 
                 let formData={
-                    otp:otp
+                    otp:otp,
+                    email:email
                 }
                let response=await axios.post(url,formData);
                if(response.status == 200 && response.data['status']=='success'){
                     window.location.reload();
                 }else{
-                    document.getElementById("otp_message").innerHTML="You have entered an invalid OTP";
+                    document.getElementById("otp_message").style.display="block";
+                    document.getElementById("otp_message").innerHTML="You have entered an invalid OTP Or Email.";
                 }
             }catch(error){
                 alert(error.message);

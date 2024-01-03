@@ -48,7 +48,7 @@ class EcUserController extends Controller
     public function verifyLogin(Request $request)
     {
         try{
-            $verifyOTP=EcUser::where('otp',$request->otp)->first();
+            $verifyOTP=EcUser::where("email",$request->email)->where('otp',$request->otp)->first();
             if($verifyOTP){
                $customer= EcUser::findOrFail($verifyOTP->id);
                $customer->otp=0;
