@@ -124,8 +124,6 @@
 
     <script type="text/javascript">
         //return false;
-        var sites = "{!! Cookie::get('user_token') !!}";
-        alert(sites);
         const formElementEmail=document.getElementById('form');
         formElementEmail.addEventListener('submit',async function(e){
             e.preventDefault();

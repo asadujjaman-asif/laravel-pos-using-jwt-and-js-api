@@ -58,6 +58,7 @@
     @include('frontend.components.home.registration_modal')
     @include('frontend.components.home.news_later')
     @include('frontend.components.home.verify-otp')
+    @include('frontend.components.home.add-to-cart')
     <!-- Plugins JS File -->
     
     
