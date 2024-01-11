@@ -10,16 +10,16 @@
                                 <div class="row">
                                     <div class="product-left">
                                         <a href="#one" class="carousel-dot active">
-                                            <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/1.html">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
                                         </a>
                                         <a href="#two" class="carousel-dot">
-                                            <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/2.html">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
                                         </a>
                                         <a href="#three" class="carousel-dot">
-                                            <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/3.html">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
                                         </a>
                                         <a href="#four" class="carousel-dot">
-                                            <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/4.html">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
                                         </a>
                                     </div>
                                     <div class="product-right">
@@ -35,29 +35,29 @@
                                             }
                                         }'>
                                             <div class="intro-slide" data-hash="one">
-                                                <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/1.html" alt="Image Desc">
-                                                <a href="https://www.portotheme.com/html/molla/popup/popup/fullscreen.html" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_1" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_link_1" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
 
                                             <div class="intro-slide" data-hash="two">
-                                                <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/2.html" alt="Image Desc">
-                                                <a href="https://www.portotheme.com/html/molla/popup/popup/fullscreen.html" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
 
                                             <div class="intro-slide" data-hash="three">
-                                                <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/3.html" alt="Image Desc">
-                                                <a href="https://www.portotheme.com/html/molla/popup/popup/fullscreen.html" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
 
                                             <div class="intro-slide" data-hash="four">
-                                                <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/4.html" alt="Image Desc">
-                                                <a href="https://www.portotheme.com/html/molla/popup/popup/fullscreen.html" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
@@ -66,17 +66,14 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-6">
-                                <h2 class="product-title">Linen-blend dress</h2>
-                                <h3 class="product-price">$60.00</h3>
+                                <h2 class="product-title" id="productName" style="font-size: 15px;text-align:justify"></h2>
+                                <h3 class="product-price" id="productPrice">00.00</h3>
 
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text">( 2 Reviews )</span>
+                                <div class="ratings-container" id="ratingsInfo">
+                                    
                                 </div><!-- End .rating-container -->
 
-                                <p class="product-txt">Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue.</p>
+                                <p class="product-txt" id="shortDescription"></p>
 
 
                                 <div class="details-filter-row product-nav product-nav-thumbs">
@@ -143,8 +140,28 @@
     </div><!-- End .modal-dialog -->
 </div><!-- End .modal -->
 <script type="text/javascript">
-     function productById(slug){
+    async function productById(slug){
         let url = `/get-product-by-id/${slug}`;
-        alert(url);
+        try{
+            let response=await axios.get(url);
+            const results=response.data.data;
+
+            console.log(results['ratings']);
+            var rattings=0;
+            if(results['ratings']){
+                rattings=(results['ratings']*10)*2;
+            }
+            
+            document.getElementById("productName").innerHTML=results['productName'];
+            document.getElementById("productPrice").innerHTML="BDT "+results['salePrice'];
+            document.getElementById("ratingsInfo").innerHTML=(`<div class="ratings">
+                <div class="ratings-val" style="width: ${rattings}%;"></div><!-- End .ratings-val -->
+                </div><!-- End .ratings -->
+                <span class="ratings-text">( ${results['votes']} Reviews )</span>`);
+
+            document.getElementById("shortDescription").innerHTML=results['shortDescription'];
+        }catch(error){
+            alert(error.message);
+        }
      }
 </script> 

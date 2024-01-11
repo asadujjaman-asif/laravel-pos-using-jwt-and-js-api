@@ -50,6 +50,7 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/get-slider-list', 'getSlider')->name('get-slider-list');
     Route::get('/get-popular-category', 'getPopularCategory')->name('get-popular-category');
     Route::get('/get-new-arrival', 'getNewArrival')->name('get-new-arrival');
+    Route::get('/get-product-by-id/{slug}', 'getProductById');
     //Start here user is logged in
 });
 Route::controller(EcUserController::class)->group(function(){

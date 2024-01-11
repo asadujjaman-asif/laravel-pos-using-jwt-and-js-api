@@ -12,6 +12,7 @@ use App\Helper\Json;
 use App\Models\ColorWiseSize;
 use App\Models\Product;
 use App\Models\ProductReview;
+use App\Models\MultiImage;
 use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
@@ -85,12 +86,20 @@ class HomeController extends Controller
                     }
                     $val->product[$key2]['colors']=ColorWiseSize::with('color')->where('product_id',$val2->id)->get();
                     $val->product[$key2]['ratings']=ProductReview::where('product_id',$val2->id)->avg('rating'); 
-                    $val->product[$key2]['votes']=ProductReview::where('product_id',$val2->id)->count('customer_id'); ; 
+                    $val->product[$key2]['votes']=ProductReview::where('product_id',$val2->id)->count('customer_id'); 
                 }
             }
            return Json::response('success','New Arrival',$result,200);
         }catch(Exception $e){
             return Json::response('failed','Unauthorized user',$e->getMessage(),200);
         }
+    }
+    public function getProductById($slug){
+        $results = Product::where("slug",$slug)->first();
+        $results["colors"]=ColorWiseSize::with('color')->where('product_id',$results->id)->get();
+        $results['ratings']=ProductReview::where('product_id',$results->id)->avg('rating'); 
+        $results['votes']=ProductReview::where('product_id',$results->id)->count('customer_id');
+        $results['shortImages']=MultiImage::where('product_id',$results->id)->first();
+        return Json::response('success','New Arrival',$results,200);
     }
 }
