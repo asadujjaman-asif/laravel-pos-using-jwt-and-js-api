@@ -10,16 +10,16 @@
                                 <div class="row">
                                     <div class="product-left">
                                         <a href="#one" class="carousel-dot active">
-                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="short_image_1">
                                         </a>
                                         <a href="#two" class="carousel-dot">
-                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="short_image_2">
                                         </a>
                                         <a href="#three" class="carousel-dot">
-                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="short_image_3">
                                         </a>
                                         <a href="#four" class="carousel-dot">
-                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}">
+                                            <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="short_image_4">
                                         </a>
                                     </div>
                                     <div class="product-right">
@@ -42,22 +42,22 @@
                                             </div><!-- End .intro-slide -->
 
                                             <div class="intro-slide" data-hash="two">
-                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" alt="Image Desc">
-                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_2" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_link_2" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
 
                                             <div class="intro-slide" data-hash="three">
-                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" alt="Image Desc">
-                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_3" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_link_3" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
 
                                             <div class="intro-slide" data-hash="four">
-                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" alt="Image Desc">
-                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" class="btn-fullscreen">
+                                                <img src="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_4" alt="Image Desc">
+                                                <a href="{{asset('assets/backend/img/demo-image.jpg')}}" id="image_link_4" class="btn-fullscreen">
                                                     <i class="icon-arrows"></i>
                                                 </a>
                                             </div><!-- End .intro-slide -->
@@ -78,12 +78,9 @@
 
                                 <div class="details-filter-row product-nav product-nav-thumbs">
                                     <label for="size">color:</label>
-                                    <a href="#" class="active">
-                                        <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/demos/demo-6/products/product-1-thumb.html" alt="product desc">
-                                    </a>
-                                    <a href="#">
-                                        <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/demos/demo-6/products/product-1-2-thumb.html" alt="product desc">
-                                    </a>
+                                   <span id="colorList" style="width:100%">
+                                        
+                                    </span>
                                 </div><!-- End .product-nav -->
 
                                 <div class="details-filter-row details-row-size">
@@ -146,12 +143,28 @@
             let response=await axios.get(url);
             const results=response.data.data;
 
-            console.log(results['ratings']);
+            console.log(results.shortImages['imageOne']);
             var rattings=0;
             if(results['ratings']){
                 rattings=(results['ratings']*10)*2;
             }
             
+            document.getElementById("image_1").src=results['image'];
+            document.getElementById("image_link_1").href=results['image'];
+            //
+            document.getElementById("image_2").src=results.shortImages['imageOne'];
+            document.getElementById("image_link_2").href=results.shortImages['imageOne'];
+            document.getElementById("short_image_1").src=results.shortImages['imageOne'];
+            //
+            document.getElementById("image_3").src=results.shortImages['imageTwo'];
+            document.getElementById("image_link_3").href=results.shortImages['imageTwo'];
+            document.getElementById("short_image_2").src=results.shortImages['imageTwo'];
+            //
+            document.getElementById("image_4").src=results.shortImages['imageThree'];
+            document.getElementById("image_link_4").href=results.shortImages['imageThree'];
+            document.getElementById("short_image_3").src=results.shortImages['imageThree'];
+            document.getElementById("short_image_4").src=results.shortImages['imageFour'];
+
             document.getElementById("productName").innerHTML=results['productName'];
             document.getElementById("productPrice").innerHTML="BDT "+results['salePrice'];
             document.getElementById("ratingsInfo").innerHTML=(`<div class="ratings">
@@ -160,6 +173,16 @@
                 <span class="ratings-text">( ${results['votes']} Reviews )</span>`);
 
             document.getElementById("shortDescription").innerHTML=results['shortDescription'];
+            if(results['colors']){
+                let colorList="";
+               let result=results['colors'];
+               result.forEach((colors, index)=>{
+                colorList+=(`<a class="active" href="#" style="background: #${colors.color.color_code};"><span class="sr-only">${colors.color.name}</span></a>`); 
+               });
+               document.getElementById("colorList").innerHTML=colorList;
+            }
+
+            
         }catch(error){
             alert(error.message);
         }
