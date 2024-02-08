@@ -11,4 +11,7 @@ class ColorWiseSize extends Model
     public function color(){
         return $this->hasOne(Color::class,'id','color_id');
     }
+    public function size(){
+        return $this->hasOne(Size::class,'id','size_id');
+    }
 }

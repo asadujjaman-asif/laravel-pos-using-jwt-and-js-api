@@ -100,6 +100,7 @@ class HomeController extends Controller
         $results['ratings']=ProductReview::where('product_id',$results->id)->avg('rating'); 
         $results['votes']=ProductReview::where('product_id',$results->id)->count('customer_id');
         $results['shortImages']=MultiImage::where('product_id',$results->id)->first();
-        return Json::response('success','New Arrival',$results,200);
+        $results["sizes"]=ColorWiseSize::with('size')->where('product_id',$results->id)->get();
+        return Json::response('success','Product by id',$results,200);
     }
 }

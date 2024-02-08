@@ -143,7 +143,7 @@
             let response=await axios.get(url);
             const results=response.data.data;
 
-            console.log(results.shortImages['imageOne']);
+            
             var rattings=0;
             if(results['ratings']){
                 rattings=(results['ratings']*10)*2;
@@ -181,7 +181,13 @@
                });
                document.getElementById("colorList").innerHTML=colorList;
             }
-
+            let sizes=results.sizes;
+            let sizeList='<option value="#" selected="selected">Select a size</option>';
+            sizes.forEach((size, index)=>{
+                
+                sizeList+=(`<option value="${size.size.slug}">${size.size.name}</option>`);
+            });
+            document.getElementById("size").innerHTML=sizeList;
             
         }catch(error){
             alert(error.message);
